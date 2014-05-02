@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="tituloListagem" value="Consulta de Certificados por Aluno" />
+	<ui:param name="mbean" value="#{certificadosProfessorControlador}" />
+
+	<ui:define name="formulario">
+		<h:form prependId="false" id="formCertificado" acceptcharset="ISO-8859-1">
+			<fieldset>
+				<legend>Filtros da pesquisa</legend>
+
+				<h:panelGrid columns="2">
+					<p:column>
+						<p:outputLabel for="completeProfessor" value="Professor:" />
+					</p:column>
+					<p:column>
+						<p:autoComplete var="p" value="#{certificadosProfessorControlador.professor}" forceSelection="true" converter="#{pessoaConversor}"
+							completeMethod="#{certificadosProfessorControlador.completeProfessores}" itemValue="#{p}" itemLabel="#{p.nome}" id="completeProfessor">
+							<p:ajax event="itemSelect" listener="#{certificadosProfessorControlador.atualizaComboTurmas}" update="comboTurmas" />
+						</p:autoComplete>
+						<p:watermark for="completeProfessor" value="Professor" />
+
+						<p:commandButton value=" ... " onclick="dialogProfessor.show()" type="button" />
+					</p:column>
+					<p:column>
+						<p:outputLabel for="comboTurmas" value="Turma:" />
+					</p:column>
+					<p:column colspan="2">
+						<p:selectOneMenu id="comboTurmas" converter="#{turmaConversor}" effect="fold" value="#{certificadosProfessorControlador.turma}"
+							style="min-width: 210px;">
+							<f:selectItem itemLabel="Selecione uma Turma" itemValue="" />
+							<f:selectItems value="#{certificadosProfessorControlador.listaTurmas}" var="turma" itemValue="#{turma}"
+								itemLabel="#{turma.matrizCurricular.curso.titulo} - #{turma.dataRealInicio}" />
+						</p:selectOneMenu>
+					</p:column>
+
+				</h:panelGrid>
+			</fieldset>
+			<fieldset><legend>Controle</legend>
+			<p:commandButton value="Buscar Certificado" action="#{certificadosProfessorControlador.emitirCertificadoProfessor}"
+				oncomplete="abrirPopupRelatorio();" />
+			</fieldset>
+
+			<p:dialog id="pesquisaProfessor" header="Selecione um Aluno..." widgetVar="dialogProfessor" modal="true" height="400">
+				<p:dataTable value="#{certificadosProfessorControlador.listaDeProfessores}" var="p" rows="10" paginator="true" paginatorPosition="bottom"
+					style="width: 80%">
+					<p:column headerText="Nome" filterBy="#{p.nome}" styleClass="colunaTabela" filterStyle="width: 40%;">
+						<h:outputText value="#{p.nome}" />
+					</p:column>
+
+					<p:column headerText="CPF" filterBy="#{p.cpf}" styleClass="colunaTabela" filterStyle="width: 40%;">
+						<h:outputText value="#{p.cpf}" />
+					</p:column>
+
+					<p:column headerText="E-mail" filterBy="#{p.email}" styleClass="colunaTabela" filterStyle="width: 40%;">
+						<h:outputText value="#{p.email}" />
+					</p:column>
+
+					<p:column style="width: 20%;">
+						<p:commandButton icon="ui-icon-pencil" onclick="dialogProfessor.hide()" action="#{certificadosProfessorControlador.atualizaComboTurmas}"
+							update="@all">
+							<f:setPropertyActionListener target="#{certificadosProfessorControlador.professor}" value="#{p}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+	<h:panelGrid cellspacing="3" border="0" columns="2">
+		<h:panelGrid columns="1" cellpadding="2" cellspacing="2">
+			<p:inputText id="nome" value="#{contatoControlador.nome}" required="true"/>
+			<p:watermark for="nome" value="Nome" />
+
+			<p:inputText id="email" value="#{contatoControlador.email}" required="true"/>
+			<p:watermark for="email" value="E-mail" />
+
+			<p:inputMask id="telefone" value="#{contatoControlador.telefone}" mask="(99) 9999-9999" />
+			<p:watermark for="telefone" value="Telefone" />
+		</h:panelGrid>
+		<h:panelGrid columns="1">
+			<p:inputTextarea id="mensagem" value="#{contatoControlador.mensagem}" required="true" rows="5"/>
+			<p:watermark for="mensagem" value="Mensagem" />
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:fragment>

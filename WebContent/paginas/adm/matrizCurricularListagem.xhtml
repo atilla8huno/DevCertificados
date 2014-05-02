@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="mbean" value="#{matrizCurricularListagemControlador}" />
+	<ui:param name="tituloListagem" value="Listagem de Matrizes Curriculares" />
+	<ui:param name="novo" value="novo"/>
+	
+	<ui:define name="formulario">
+		<p:dataTable value="#{matrizCurricularListagemControlador.lista}" var="mc" rows="10" paginator="true" paginatorPosition="bottom">
+			
+			<p:column headerText="Curso" filterBy="#{mc.curso.titulo}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{mc.curso.titulo}" />
+			</p:column>
+			
+			<p:column headerText="Nível" filterBy="#{mc.nivel.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{mc.nivel.descricao}" />
+			</p:column>
+			
+			<p:column headerText="Turno" filterBy="#{mc.turno.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{mc.turno.descricao}" />
+			</p:column>
+			
+			<p:column style="width: 10%;">
+				<p:commandButton icon="ui-icon-pencil" action="#{matrizCurricularListagemControlador.alterarMatriz}" ajax="false">
+					<f:setPropertyActionListener target="#{matrizCurricularCadastroControlador.entidade}" value="#{mc}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-trash" action="#{matrizCurricularListagemControlador.excluir}" update="@form">
+					<f:setPropertyActionListener target="#{matrizCurricularListagemControlador.entidade}" value="#{mc}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

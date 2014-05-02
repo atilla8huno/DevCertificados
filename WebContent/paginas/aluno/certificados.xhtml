@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="tituloListagem" value="Consulta de Certificados por Código de Verificação On-Line" />
+	<ui:param name="mbean" value="#{meusCertificadosControlador}" />
+
+	<ui:define name="formulario">
+		<h:form prependId="false" id="formCertificado" acceptcharset="ISO-8859-1">
+			<fieldset>
+				<legend>Filtros da pesquisa</legend>
+				<h:panelGrid columns="2">
+					<p:column>
+						<p:outputLabel id="labelCodigo" for="codigo" value="Código de Verificação" />
+					</p:column>
+					<p:column>
+						<p:inputText id="codigo" value="#{meusCertificadosControlador.codigo}" size="20" required="true" requiredMessage="Campo Obrigatório!" />
+						<p:watermark for="codigo" value="Código de Verificação" />
+					</p:column>
+				</h:panelGrid>
+			</fieldset>
+			<fieldset>
+				<legend>Controle</legend>
+				<p:commandButton value="Buscar Certificado" update="codigo  labelCodigo"  action="#{meusCertificadosControlador.emitirCertificado}" oncomplete="abrirPopupRelatorio();" />
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

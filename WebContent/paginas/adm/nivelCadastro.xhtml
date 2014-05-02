@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="mbean" value="#{nivelCadastroControlador}" />
+	<ui:param name="salvar" value="salvar" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+	<ui:param name="tituloCadastro" value="Cadastro de Nivel" />
+
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Dados do Nível</legend>
+			<h:panelGrid columns="2">
+				<p:column>
+					<p:outputLabel for="nivelDescricao" value="Descrição" />
+				</p:column>
+				<p:column>
+					<p:inputText id="nivelDescricao" value="#{nivelCadastroControlador.entidade.descricao}" size="40" maxlength="14" required="true" />
+					<p:watermark for="nivelDescricao" value="Descrição" />
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="nivelSigla" value="Sigla" />
+				</p:column>
+
+				<p:column>
+					<p:inputText id="nivelSigla" value="#{nivelCadastroControlador.entidade.sigla}" size="10" maxlength="1" required="true" />
+					<p:watermark for="nivelSigla" value="Sigla" />
+				</p:column>
+			</h:panelGrid>
+		</fieldset>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioUsuarios" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="66bed22e-1aa7-44a1-afe5-d0bb2c6ebab8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CONTEXT_ROOT" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="tel_fixo" class="java.lang.String"/>
+	<field name="tel_celular" class="java.lang.String"/>
+	<field name="tel_comercial" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="formacao" class="java.lang.String"/>
+	<field name="atividade" class="java.lang.String"/>
+	<field name="tipo_aluno" class="java.lang.Boolean"/>
+	<field name="tipo_professor" class="java.lang.Boolean"/>
+	<field name="tipo_adm" class="java.lang.Boolean"/>
+	<field name="status" class="java.lang.Boolean"/>
+	<field name="data_cadastro" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="116" splitType="Stretch">
+			<image>
+				<reportElement uuid="66238448-9fec-4ecc-8ba0-47a6bd89b2c8" x="0" y="0" width="274" height="116"/>
+				<imageExpression><![CDATA[$P{CONTEXT_ROOT} + "images/logo_principal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c1fbd4b1-d84f-41af-ba14-cb7b34a05bb6" x="274" y="29" width="528" height="52" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE USUÁRIOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="16">
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement uuid="3949d49a-ba5e-404d-b889-07e371ca96de" stretchType="RelativeToBandHeight" x="750" y="0" width="52" height="16"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="479cc7c5-2ac9-4902-8ceb-a18cc4238b5b" stretchType="RelativeToBandHeight" x="618" y="0" width="132" height="16"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="25ccc607-fe7b-4b45-9658-a49439a8f248" stretchType="RelativeToBandHeight" x="335" y="0" width="132" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório de Usuários"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="625c0905-0e84-4400-bbe0-127ecf6c8cb1" x="0" y="15" width="181" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Completo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8f86e4c5-35ad-4b06-981a-3d67d8a87aa4" x="182" y="15" width="77" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="04422a97-f04e-4006-89c3-431277e0f56a" x="260" y="15" width="75" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone Fixo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fef4aba1-3e05-4e4e-a53c-2d94ec966845" x="412" y="15" width="176" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a9fee118-8f29-48f3-8a96-28f70bf4206b" x="336" y="15" width="75" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tel. Celular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="981172ff-a202-4e24-b75b-c846c83d12ef" x="589" y="15" width="58" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Professor?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dc089c0a-5a19-4fec-ad25-7dec09678c37" x="648" y="15" width="32" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADM?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ac6a9e80-f84f-4e93-aa40-e38b97c5dc72" x="681" y="15" width="78" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="961c5fc6-3271-405f-a253-73b9438bc7ed" x="760" y="15" width="42" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="b2f0f44b-a1ea-4049-8c18-f6b1375dab27" x="0" y="14" width="802" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="bf976f51-8172-4f89-ba83-5a5d4a46f67c" x="0" y="34" width="802" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8d015ac1-59ce-4ded-aae1-695b268eb7fa" x="0" y="1" width="181" height="16"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="89986be0-3027-4482-9e7e-45d9a0533287" x="336" y="4" width="75" height="13"/>
+				<textElement>
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tel_celular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="867d2fc3-e150-4542-92dd-726a542e1487" x="412" y="1" width="176" height="16"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="551c939c-a237-4419-b7fa-b483b7d83e17" x="589" y="0" width="58" height="17"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_professor} == null || $F{tipo_professor} == false ? "NÃO" : "SIM"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6a83d5a2-8a74-4844-92e9-5ca7fbeb4f67" x="648" y="0" width="32" height="17"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_adm} == null || $F{tipo_adm} == false ? "NÃO" : "SIM"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8328d632-1e98-4873-b04b-c6dac1ad86d6" x="681" y="0" width="78" height="17"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_cadastro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b105e388-2aff-4425-a038-73b52a8c9e4a" x="760" y="0" width="42" height="17"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status} == null || $F{status} == false ? "Inativo" : "Ativo"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="623e476c-ce94-4dc5-8370-d3bafd58db7c" x="260" y="4" width="75" height="13"/>
+				<textElement>
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tel_fixo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="300c7048-3734-4aa0-be19-042c5c11d653" x="182" y="4" width="77" height="13"/>
+				<textElement>
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27">
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement uuid="17294797-b97f-4e26-b729-f70c9a3695ff" stretchType="RelativeToBandHeight" x="750" y="11" width="52" height="16"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="752bb3c4-99ff-4e38-b61f-55f962a93d12" stretchType="RelativeToBandHeight" x="618" y="11" width="132" height="16"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " +$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+	<fieldset>
+		<legend>Dados pessoais</legend>
+		<h:panelGrid cellspacing="2" border="0" columns="2">
+
+			<p:column>
+				<p:outputLabel for="pessoaCPF" value="CPF" />
+			</p:column>
+			<p:column>
+				<p:inputMask id="pessoaCPF" value="#{mbean.entidade.cpf}" size="16" mask="999.999.999-99" required="true" />
+				<p:watermark for="pessoaCPF" value="CPF" />
+			</p:column>
+
+			<p:column>
+				<p:outputLabel for="pessoaNome" value="Nome" />
+			</p:column>
+			<p:column>
+				<p:inputText id="pessoaNome" value="#{mbean.entidade.nome}" size="60" required="true" />
+				<p:watermark for="pessoaNome" value="Nome" />
+			</p:column>
+
+			<p:column>
+				<p:outputLabel for="pessoaEmail" value="E-mail" />
+			</p:column>
+			<p:column>
+				<p:inputText id="pessoaEmail" value="#{mbean.entidade.email}" size="60" required="true" />
+				<p:watermark for="pessoaEmail" value="E-mail" />
+			</p:column>
+			<p:column>
+				<p:outputLabel for="pessoaFormacao" value="Formação" />
+			</p:column>
+
+			<p:column>
+				<p:inputText id="pessoaFormacao" value="#{mbean.entidade.formacao}" size="60" />
+				<p:watermark for="pessoaFormacao" value="Formação"></p:watermark>
+			</p:column>
+
+			<p:column>
+				<p:outputLabel for="pessoaAtvProfissional" value="Atividade Profissional" />
+			</p:column>
+			<p:column>
+				<p:inputText id="pessoaAtvProfissional" value="#{mbean.entidade.atividadeProfissional}" size="60" />
+				<p:watermark for="pessoaAtvProfissional" value="Atividade Profissional"></p:watermark>
+			</p:column>
+
+			<p:column colspan="2">
+				<p:outputLabel for="pessoaCelular" value="Telefone Celular" />
+			</p:column>
+			<p:column>
+				<p:inputMask id="pessoaCelular" value="#{mbean.entidade.telefoneCelular}" size="16" mask="(99)9999-9999" />
+				<p:watermark for="pessoaCelular" value="Telefone Celular"></p:watermark>
+			</p:column>
+
+			<p:column colspan="2">
+				<p:outputLabel for="pessoaFoneComercial" value="Telefone Comercial" />
+			</p:column>
+			<p:column>
+				<p:inputMask id="pessoaFoneComercial" value="#{mbean.entidade.telefoneComercial}" size="16" mask="(99)9999-9999" />
+				<p:watermark for="pessoaFoneComercial" value="Telefone Comercial" />
+			</p:column>
+
+
+			<p:column colspan="2">
+				<p:outputLabel for="pessoaFoneFixo" value="Telefone Fixo" />
+			</p:column>
+			<p:column>
+				<p:inputMask id="pessoaFoneFixo" value="#{mbean.entidade.telefoneFixo}" size="16" mask="(99)9999-9999" />
+				<p:watermark for="pessoaFoneFixo" value="Telefone Fixo" />
+			</p:column>
+
+			<p:column>
+				<p:outputLabel for="pessoaSenha" value="Senha" />
+			</p:column>
+			<p:column>
+				<p:password id="pessoaSenha" value="#{mbean.entidade.senha}" size="16" rendered="#{mbean.entidade.isTransient()}" required="true" />
+				<p:watermark for="pessoaSenha" value="Senha" />
+			</p:column>
+
+			<p:column>
+				<p:outputLabel for="pessoaConfirmarSenha" value="Confirmar Senha" />
+			</p:column>
+			<p:column>
+				<p:password id="pessoaConfirmarSenha" value="#{mbean.entidade.confirmarSenha}" size="16" rendered="#{mbean.entidade.isTransient()}"
+					required="true" />
+				<p:watermark for="pessoaConfirmarSenha" value="Confirmar Senha" />
+			</p:column>
+		</h:panelGrid>
+	</fieldset>
+
+	<fieldset>
+		<legend>Imagem da assinatura digital</legend>
+		<h:form id="formUpload" enctype="multipart/form-data" rendered="#{mbean.entidade.tipoProfessor}">
+			<h:outputLabel value="Uplaod de imgem com assinatura digital" />
+			<p:fileUpload required="#{mbean.entidade.assinaturaDigital == null}" label="Procurar" fileUploadListener="#{mbean.fileUpload}" id="idcomponent"
+				sizeLimit="9999999" dragDropSupport="true"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+				invalidFileMessage="Tipo de arquivo inválido!" />
+		</h:form>
+
+	</fieldset>
+
+
+</ui:fragment>

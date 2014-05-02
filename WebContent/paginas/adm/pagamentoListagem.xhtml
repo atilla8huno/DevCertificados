@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="tituloListagem" value="Listagem de Pagamentos" />
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Dados do pagamento</legend>
+			<h:panelGrid columns="3">
+				<p:inputText value="#{pagamentoListagemControlador.curso.titulo}" id="curso" size="50" />
+				<p:watermark value="Curso" for="curso" />
+				<p:commandButton value=" ... " action="#{pagamentoListagemControlador.consultarCursos}" update="@form" />
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+				<p:selectOneMenu id="comboTurma" value="#{pagamentoListagemControlador.turma}" effect="fold" converter="#{turmaConversor}"
+					style="min-width: 210px;">
+					<f:selectItem itemLabel="Selecione uma Turma" itemValue="" />
+					<f:selectItems value="#{pagamentoListagemControlador.listaTurma}" var="turma" itemValue="#{turma}"
+						itemLabel="#{turma.nome} - #{turma.dataRealInicio}" />
+						<p:ajax update="dataTable" listener="#{pagamentoListagemControlador.listarAlunos}"/>
+				</p:selectOneMenu>
+			</h:panelGrid>
+		</fieldset>
+
+		<p:spacer height="5px" />
+		
+		<fieldset>
+			<legend>Lista de Alunos pagamento</legend>
+
+		<p:dataTable id="dataTable" value="#{pagamentoListagemControlador.listaAlunos}" var="aluno">
+			<p:column headerText="Aluno" filterBy="#{aluno.pessoa.nome}" sortBy="#{aluno.pessoa.nome}" filterStyle="width:100%;">
+				<h:outputLabel value="#{aluno.pessoa.nome}" />
+			</p:column>
+			<p:column style="width: 5%;">
+				<p:commandButton icon="ui-icon-pencil" action="#{pagamentoListagemControlador.selecionar}" ajax="false">
+					<f:setPropertyActionListener target="#{pagamentoCadastroControlador.alunoTurma}" value="#{aluno}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		</fieldset>
+
+		<p:dialog visible="#{pagamentoListagemControlador.abreListaCurso}" modal="true">
+
+			<p:dataTable value="#{pagamentoListagemControlador.listaCursos}" var="c" rows="5" paginator="true" paginatorPosition="bottom">
+				<p:column headerText="Título" filterBy="#{c.titulo}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.titulo}" />
+				</p:column>
+
+				<p:column headerText="Descrição" filterBy="#{c.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.descricao}" />
+				</p:column>
+
+				<p:column headerText="Investimento" filterBy="#{c.investimento}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.investimento}">
+						<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width: 10%;">
+					<p:commandButton icon="ui-icon-pencil" action="#{pagamentoListagemControlador.selecionarCurso}" update="@form">
+						<f:setPropertyActionListener target="#{pagamentoListagemControlador.curso}" value="#{c}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="mbean" value="#{auditoriaControlador}" />
+	<ui:param name="tituloListagem" value="Listagem de Logs para Auditoria" />
+
+	<ui:define name="formulario">
+		<p:panel>
+			<fieldset>
+				<legend>Filtro da consulta de log</legend>
+				<p:column>
+
+					<p:outputLabel for="data" value="Data:" />
+				</p:column>
+
+				<p:column>
+					<p:calendar id="data" value="#{auditoriaControlador.data}" pattern="dd/MM/yyyy" />
+				</p:column>
+			</fieldset>
+			<fieldset>
+				<legend>Controles</legend>
+				<p:commandButton action="#{auditoriaControlador.pesquisar}" icon="ui-icon-search" value="Pesquisar" update="tabelaPesquisa" immediate="false" />
+				<p:spacer width="5" />
+				<p:commandButton action="#{auditoriaControlador.limpar}"  icon="ui-icon-trash"  value="Limpar" ajax="false" update="@form" />
+			</fieldset>
+
+			<fieldset>
+				<legend>Resultado da pesquisa</legend>
+
+				<p:dataTable id="tabelaPesquisa" value="#{auditoriaControlador.listaAuditorias}" styleClass="tabelaDados" width="100%" var="linha"
+					emptyMessage="Nenhum registro encontrado!">
+
+					<p:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="Data" />
+						</f:facet>
+						<h:outputText value="#{linha.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="#{auditoriaControlador.timeZone}" />
+						</h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Usuário" />
+						</f:facet>
+						<h:outputText value="#{linha.pessoa.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Funcionalidade" />
+						</f:facet>
+						<h:outputText value="#{linha.urlFuncionalidade}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Tipo" />
+						</f:facet>
+						<h:outputText value="#{linha.tipoMensagem}" />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Detalhes" oncomplete="dialogLog.show()">
+							<f:setPropertyActionListener value="#{linha}" target="#{auditoriaControlador.auditoria}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</fieldset>
+
+		</p:panel>
+
+		<p:dialog id="dialogLog" widgetVar="dialogLog" modal="true" height="400">
+			<p:outputPanel id="panelDialog">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="Detalhes do Log de Auditoria"></h:outputText>
+					</h:panelGroup>
+				</f:facet>
+				<h:outputLabel value="Código: " style="font-weight: bold;" />
+				<h:outputText value="#{auditoriaControlador.auditoria.idMensagem}" />
+				<br />
+				<h:outputLabel value="Mensagem: " style="font-weight: bold;" />
+				<h:outputText value="#{auditoriaControlador.auditoria.mensagem}" />
+				<br />
+				<h:outputLabel value="Exceção: " style="font-weight: bold;" rendered="#{auditoriaControlador.auditoria.excecao != null}" />
+				<br />
+
+				<h:outputText value="#{auditoriaControlador.auditoria.excecao}" />
+				<br />
+			</p:outputPanel>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

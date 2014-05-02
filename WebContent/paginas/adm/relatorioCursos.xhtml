@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateRelatorio.xhtml">
+	<ui:param name="mbean" value="#{relatorioCursosControlador}" />
+
+	<ui:param name="emitirRelatorio" value="emitirRelatorio" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+
+	<ui:param name="titulo" value="Relatório de Cursos" />
+
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Filtros para pesquisa</legend>
+			<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+
+				<p:column>
+					<p:outputLabel for="status" value="Status do Curso:" />
+				</p:column>
+				<p:column>
+					<p:selectBooleanCheckbox id="status" label="Ativo ou Inativo" value="#{relatorioCursosControlador.status}"/>
+				</p:column><br/>
+				
+			</h:panelGrid>
+		</fieldset>
+	</ui:define>
+</ui:composition>
+</html>

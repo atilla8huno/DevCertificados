@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="tituloCadastro" value="Plano de Aula Cadastro" />
+	<ui:param name="mbean" value="#{planoAulaCadastroControlador}" />
+	<ui:param name="salvar" value="salvar" />
+
+	<ui:define name="formulario">
+		<p:panel>
+			<fieldset>
+				<legend>Dados do plano de aula</legend>
+				<h:panelGrid columns="2">
+					<p:column>
+						<p:outputLabel value="Curso:" for="curso" />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{planoAulaCadastroControlador.curso.titulo}" id="curso" size="50" />
+						<p:watermark value="Curso" for="curso" />
+						<p:commandButton value=" ... " action="#{planoAulaCadastroControlador.abreListaCurso}" update="@form" />
+					</p:column>
+
+					<p:column>
+						<p:outputLabel value="Turma:" for="comboTurma" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="comboTurma" value="#{planoAulaCadastroControlador.turma}" effect="fold" converter="#{turmaConversor}"
+							style="min-width: 210px;">
+							<f:selectItem itemLabel="Selecione uma Turma" itemValue="" />
+							<f:selectItems value="#{planoAulaCadastroControlador.listaTurmas}" var="turma" itemValue="#{turma}"
+								itemLabel="#{turma.nome} - #{turma.dataRealInicio}" />
+						</p:selectOneMenu>
+					</p:column>
+
+				</h:panelGrid>
+			</fieldset>
+			<fieldset>
+				<legend>Controle de plano de aula</legend>
+				<p:commandButton value="Listar" action="#{planoAulaCadastroControlador.listar}" update="dataTable" />
+			</fieldset>
+			<p:spacer height="5px" />
+			<fieldset>
+				<legend>Listagem de aulas</legend>
+				<p:dataTable id="dataTable" value="#{planoAulaCadastroControlador.listaAulas}" var="a" rows="10" paginator="true">
+					<p:column headerText="Aulas">
+						<p:panelGrid columns="2">
+							<h:panelGroup>
+								<h:outputLabel value="Data: " />
+								<h:outputLabel value="#{a.dataAula}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+								</h:outputLabel>
+							</h:panelGroup>
+							<h:panelGroup />
+							<p:inputTextarea value="#{a.planoDeAula}" style="width: 830px;" />
+							<p:commandButton value="Limpar" action="#{planoAulaCadastroControlador.limparAulaSelecionada}" style="height: 100%;" update="dataTable">
+								<f:setPropertyActionListener target="#{planoAulaCadastroControlador.aulaSelecionada}" value="#{a}" />
+							</p:commandButton>
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+			</fieldset>
+
+		</p:panel>
+
+		<p:dialog visible="#{planoAulaCadastroControlador.abreListaCurso}" modal="true">
+
+			<p:dataTable value="#{planoAulaCadastroControlador.listaCursos}" var="c" rows="5" paginator="true" paginatorPosition="bottom">
+
+				<p:column headerText="Título" filterBy="#{c.titulo}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.titulo}" />
+				</p:column>
+
+				<p:column headerText="Descrição" filterBy="#{c.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.descricao}" />
+				</p:column>
+
+				<p:column headerText="Investimento" filterBy="#{c.investimento}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.investimento}">
+						<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width: 10%;">
+					<p:commandButton icon="ui-icon-pencil" action="#{planoAulaCadastroControlador.selecionarCurso}" update="@form">
+						<f:setPropertyActionListener target="#{planoAulaCadastroControlador.curso}" value="#{c}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

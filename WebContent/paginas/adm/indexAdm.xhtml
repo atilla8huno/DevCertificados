@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:decorate template="/template/template.xhtml">
+
+	<ui:define name="conteudo">
+		<table style="text-align: center">
+			<tr>
+				<td><p:commandLink id="linkCursos" action="#{cursoListagemControlador.entrarListaCursos}" styleClass="indexLink">
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/Safari.png"></p:graphicImage>
+					</p:commandLink></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel value="Lista de Cursos" styleClass="linkLabel" /></td>
+			</tr>
+
+		</table>
+
+	</ui:define>
+</ui:decorate>
+</html>

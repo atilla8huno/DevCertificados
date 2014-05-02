@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="tituloCadastro" value="Reativação da Conta DevSchool" />
+	<ui:param name="mbean" value="#{reativarContaControlador}" />
+	<ui:param name="cancelar" value="cancelar" />
+	
+	<ui:define name="formulario">
+		<p:fieldset legend="Reativação da Conta DevSchool Tecnologia" toggleSpeed="500" toggleable="true">
+			<h:panelGrid>
+				<h:outputText value="Olá, srt(a). #{reativarContaControlador.usuario.nome}, seja bem-vindo(a) novamente à DevSchool Tecnologia!" />
+				<h:outputText value="Verificamos que sua conta DevCertificados encontra-se INATIVA. Gostaríamos de reativá-la para melhor lhe atender." />
+				<h:outputText value="Para reativar sua conta, basta confirmar. É simples e rápido!" />
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+	<ui:define name="botoesAuxiliares">
+		<p:commandButton value="Reativar Conta" action="#{reativarContaControlador.reativarConta}" ajax="false" icon="ui-icon-disk"/>
+	</ui:define>
+</ui:composition>
+</html>

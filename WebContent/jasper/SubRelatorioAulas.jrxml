@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioDisciplinas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c8d26c0-0188-4c4b-b0bc-853a146e9c10">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CONTEXT_ROOT" class="java.lang.String"/>
+	<field name="data_aula" class="java.util.Date"/>
+	<field name="presenca" class="java.lang.Boolean"/>
+	<columnHeader>
+		<band height="15">
+			<staticText>
+				<reportElement uuid="66faff16-00ca-45c2-a001-d002ad336cc9" x="0" y="0" width="71" height="15"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data da Aula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2fb212d-f080-4411-b932-7ec3744afeab" x="175" y="0" width="100" height="15"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presença]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="11d6072b-6fa8-4e6c-aabb-e16c3abb43c4" x="0" y="14" width="275" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="40755915-1bcf-4daf-9146-ab0df1a003b5" x="0" y="0" width="275" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="4e7ac412-e4cb-4498-8ac2-63315326afbf" x="0" y="0" width="165" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_aula}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="315cf221-e696-4885-a2a3-f778f97cc036" x="175" y="0" width="89" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{presenca} != null ? ($F{presenca} == true ? "SIM" : "NÃO") : null]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

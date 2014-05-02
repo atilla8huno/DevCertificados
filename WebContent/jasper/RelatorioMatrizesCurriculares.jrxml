@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioMatrizesCurriculares" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="66bed22e-1aa7-44a1-afe5-d0bb2c6ebab8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CONTEXT_ROOT" class="java.lang.String"/>
+	<field name="curso" class="java.lang.String"/>
+	<field name="nivel" class="java.lang.String"/>
+	<field name="turno" class="java.lang.String"/>
+	<field name="disciplinas" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="116" splitType="Stretch">
+			<image>
+				<reportElement uuid="66238448-9fec-4ecc-8ba0-47a6bd89b2c8" x="0" y="0" width="274" height="116"/>
+				<imageExpression><![CDATA[$P{CONTEXT_ROOT} + "images/logo_principal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c1fbd4b1-d84f-41af-ba14-cb7b34a05bb6" x="274" y="0" width="281" height="116" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE MATRIZES CURRICULARES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="16">
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement uuid="3949d49a-ba5e-404d-b889-07e371ca96de" stretchType="RelativeToBandHeight" x="504" y="0" width="52" height="16"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="479cc7c5-2ac9-4902-8ceb-a18cc4238b5b" stretchType="RelativeToBandHeight" x="372" y="0" width="132" height="16"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="25ccc607-fe7b-4b45-9658-a49439a8f248" stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório de Matrizes Curriculares"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="625c0905-0e84-4400-bbe0-127ecf6c8cb1" x="0" y="15" width="144" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8f86e4c5-35ad-4b06-981a-3d67d8a87aa4" x="259" y="14" width="139" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nível]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="04422a97-f04e-4006-89c3-431277e0f56a" x="398" y="14" width="157" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turno]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="b2f0f44b-a1ea-4049-8c18-f6b1375dab27" x="0" y="14" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="bf976f51-8172-4f89-ba83-5a5d4a46f67c" x="0" y="34" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="8d015ac1-59ce-4ded-aae1-695b268eb7fa" stretchType="RelativeToBandHeight" x="0" y="1" width="259" height="16"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="300c7048-3734-4aa0-be19-042c5c11d653" stretchType="RelativeToBandHeight" x="259" y="1" width="139" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nivel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="9dbcdcb8-827f-4eeb-97b8-0a3df23d7f8d" stretchType="RelativeToBandHeight" x="398" y="1" width="157" height="16" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turno}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="30">
+			<subreport>
+				<reportElement uuid="6b557e26-777c-4b01-9acd-2cf1cc311ee5" x="0" y="0" width="555" height="30"/>
+				<subreportParameter name="CONTEXT_ROOT">
+					<subreportParameterExpression><![CDATA[]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$F{disciplinas}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{CONTEXT_ROOT} + "jasper/SubRelatorioDisciplinas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27">
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement uuid="17294797-b97f-4e26-b729-f70c9a3695ff" stretchType="RelativeToBandHeight" x="504" y="11" width="52" height="16"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="752bb3c4-99ff-4e38-b61f-55f962a93d12" stretchType="RelativeToBandHeight" x="372" y="11" width="132" height="16"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " +$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

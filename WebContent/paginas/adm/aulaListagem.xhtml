@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="tituloListagem" value="Listagem de Turmas" />
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Dados pesquisa</legend>
+			<h:panelGrid columns="3">
+				<p:inputText value="#{aulaListagemControlador.curso.titulo}" id="curso" size="50" />
+				<p:watermark value="Curso" for="curso" />
+				<p:commandButton value=" ... " action="#{aulaListagemControlador.abreListaCurso}" update="@form" />
+			</h:panelGrid>
+		</fieldset>
+		<fieldset>
+			<legend>Controle</legend>
+			<h:panelGrid columns="1">
+				<p:commandButton value="Pesquisar" action="#{aulaListagemControlador.listarTurmas}" update="dataTable" />
+			</h:panelGrid>
+		</fieldset>
+		<p:spacer height="5px" />
+		<fieldset>
+			<legend>Listagem</legend>
+		
+		<p:dataTable id="dataTable" value="#{aulaListagemControlador.listaTurmas}" var="t" rows="5" paginator="true" paginatorPosition="bottom">
+
+			<p:column headerText="Nome" filterBy="#{t.nome}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{t.nome}" />
+			</p:column>
+
+			<p:column style="width: 10%;">
+				<p:commandButton icon="ui-icon-pencil" action="#{aulaListagemControlador.selecionar}" ajax="false">
+					<f:setPropertyActionListener target="#{aulaCadastroControlador.turma}" value="#{t}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		
+		</fieldset>
+
+		<p:dialog visible="#{aulaListagemControlador.abreListaCurso}" modal="true">
+
+			<p:dataTable value="#{aulaListagemControlador.listaCursos}" var="c" rows="5" paginator="true" paginatorPosition="bottom">
+
+				<p:column headerText="Título" filterBy="#{c.titulo}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.titulo}" />
+				</p:column>
+
+				<p:column headerText="Descrição" filterBy="#{c.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.descricao}" />
+				</p:column>
+
+				<p:column headerText="Investimento" filterBy="#{c.investimento}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.investimento}">
+						<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width: 10%;">
+					<p:commandButton icon="ui-icon-pencil" action="#{aulaListagemControlador.selecionarCurso}" update="@form">
+						<f:setPropertyActionListener target="#{aulaListagemControlador.curso}" value="#{c}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

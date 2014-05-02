@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="tituloCadastro" value="Alterar Senha" />
+	<ui:param name="mbean" value="#{alterarSenhaControlador}" />
+	<ui:param name="salvar" value="salvar" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+	
+	<ui:define name="formulario">
+		<h:panelGrid>
+			<p:password value="#{alterarSenhaControlador.senhaAtual}" id="senhaAtual" required="true"/>
+			<p:watermark for="senhaAtual" value="Senha Atual" /><br/>
+			
+			<p:separator /><br/>
+			
+			<p:password value="#{alterarSenhaControlador.senhaNova}" id="senhaNova" required="true" />
+			<p:watermark for="senhaNova" value="Nova Senha" />
+			
+			<p:password value="#{alterarSenhaControlador.senhaNovaConfirmacao}" id="senhaNovaConfirmacao" required="true"/>
+			<p:watermark for="senhaNovaConfirmacao" value="Confirmar Senha" />
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
+</html>

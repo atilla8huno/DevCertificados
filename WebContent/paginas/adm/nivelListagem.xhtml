@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="mbean" value="#{nivelListagemControlador}" />
+	<ui:param name="tituloListagem" value="Listagem de Niveis" />
+	<ui:param name="novo" value="novo"/>
+	
+	<ui:define name="formulario">
+		<p:dataTable value="#{nivelListagemControlador.lista}" var="n" rows="10" paginator="true" paginatorPosition="bottom">
+			
+			<p:column headerText="Descrição" filterBy="#{n.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{n.descricao}" />
+			</p:column>
+			
+			<p:column headerText="Sigla" filterBy="#{n.sigla}" styleClass="colunaTabela" filterStyle="width: 10%;">
+				<h:outputText value="#{n.sigla}" />
+			</p:column>
+			
+			<p:column style="width: 10%;">
+				<p:commandButton icon="ui-icon-pencil" action="/paginas/adm/nivelCadastro.jsf?faces-redirect=true" ajax="false">
+					<f:setPropertyActionListener target="#{nivelCadastroControlador.entidade}" value="#{n}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-trash" action="#{nivelListagemControlador.excluir}" update="@form">
+					<f:setPropertyActionListener target="#{nivelListagemControlador.entidade}" value="#{n}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

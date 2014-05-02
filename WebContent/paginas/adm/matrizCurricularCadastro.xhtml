@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="mbean" value="#{matrizCurricularCadastroControlador}" />
+	<ui:param name="salvar" value="salvar" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+	<ui:param name="tituloCadastro" value="Cadastro de Matriz Curricular" />
+
+	<ui:define name="formulario">
+
+		<fieldset>
+			<legend>dados da matriz curricular</legend>
+			<h:panelGrid columns="6">
+				<p:column>
+					<p:outputLabel for="selectCurso" value="Curso" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="selectCurso" converter="#{cursoConversor}" effect="fold" value="#{matrizCurricularCadastroControlador.entidade.curso}"
+						required="true">
+						<f:selectItem itemLabel="Selecione um Curso" itemValue="" />
+						<f:selectItems value="#{matrizCurricularCadastroControlador.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.titulo}" />
+					</p:selectOneMenu>
+
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="selectNivel" value="Nível" />
+				</p:column>
+
+				<p:column>
+
+					<p:selectOneMenu id="selectNivel" converter="#{nivelConversor}" effect="fold" value="#{matrizCurricularCadastroControlador.entidade.nivel}"
+						required="true">
+						<f:selectItem itemLabel="Selecione um Nível" itemValue="" />
+						<f:selectItems value="#{matrizCurricularCadastroControlador.niveis}" var="nivel" itemValue="#{nivel}" itemLabel="#{nivel.descricao}" />
+					</p:selectOneMenu>
+
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="selectTurno" value="Turno" />
+				</p:column>
+				<p:column>
+
+					<p:selectOneMenu id="selectTurno" converter="#{turnoConversor}" effect="fold" value="#{matrizCurricularCadastroControlador.entidade.turno}"
+						required="true">
+						<f:selectItem itemLabel="Selecione um Turno" itemValue="" />
+						<f:selectItems value="#{matrizCurricularCadastroControlador.turnos}" var="turno" itemValue="#{turno}" itemLabel="#{turno.descricao}" />
+					</p:selectOneMenu>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="completeDisciplina" value=" Disciplinas" />
+				</p:column>
+				<p:column>
+					<p:watermark for="completeDisciplina" value="Vincule Disciplinas"></p:watermark>
+					<p:autoComplete var="d" value="#{matrizCurricularCadastroControlador.matrizDisciplina.disciplina}" forceSelection="true"
+						converter="#{disciplinaConversor}" completeMethod="#{matrizCurricularCadastroControlador.completeDisciplinas}" itemValue="#{d}"
+						itemLabel="#{d.titulo}" id="completeDisciplina" />
+					<p:commandButton value=" ... " onclick="dialogDisciplina.show()" type="button" />
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="matrizCargaHorario" value="Carga Horária" />
+				</p:column>
+				<p:column>
+					<p:watermark for="matrizCargaHorario" value="Carga Horária" />
+					<p:inputText id="matrizCargaHorario" value="#{matrizCurricularCadastroControlador.matrizDisciplina.cargaHoraria}" size="20" maxlength="3"
+						required="true" />
+					<h:outputLabel value=" Horas" />
+
+
+				</p:column>
+
+			</h:panelGrid>
+		</fieldset>
+
+		<fieldset>
+			<legend>Controle Disciplina</legend>
+			<p:commandButton value="Adicionar" action="#{matrizCurricularCadastroControlador.selecionarDisciplina}" ajax="false" update="@form" />
+		</fieldset>
+
+		<fieldset>
+			<legend>Disciplinas Vinculadas</legend>
+			<h:panelGrid columns="3">
+				<h:panelGrid columns="1">
+
+					<p:dataTable value="#{matrizCurricularCadastroControlador.disciplinasSelecionadas}" var="ds" rows="10" paginator="true"
+						paginatorPosition="bottom">
+
+						<p:column headerText="Descrição" style="width: 80%;" filterBy="#{ds.disciplina.titulo}" styleClass="colunaTabela" filterStyle="width: 80%;">
+							<h:outputText value="#{ds.disciplina.titulo}" />
+						</p:column>
+
+						<p:column headerText="Carga Horária" style="width: 80%;" filterBy="#{ds.cargaHoraria}" styleClass="colunaTabela" filterStyle="width: 80%;">
+							<h:outputText value="#{ds.cargaHoraria}" />
+						</p:column>
+
+						<p:column style="width: 40%">
+							<p:commandButton icon="ui-icon-trash" ajax="false" action="#{matrizCurricularCadastroControlador.removerDisciplina}" update="@form">
+								<f:setPropertyActionListener target="#{matrizCurricularCadastroControlador.matrizDisciplina}" value="#{ds}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+			</h:panelGrid>
+
+		</fieldset>
+
+		<p:dialog header="Selecione uma Disciplina..." widgetVar="dialogDisciplina" modal="true" height="400">
+			<p:dataTable value="#{matrizCurricularCadastroControlador.disciplinasAtivas}" var="da" rows="10" paginator="true" paginatorPosition="bottom"
+				style="width: 80%">
+				<p:column headerText="Descrição" filterBy="#{da.titulo}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{da.titulo}" />
+				</p:column>
+
+				<p:column style="width: 20%;">
+					<p:commandButton icon="ui-icon-pencil" onclick="dialogDisciplina.hide()" update=":formGeral:completeDisciplina" process="@this">
+						<f:setPropertyActionListener target="#{matrizCurricularCadastroControlador.matrizDisciplina.disciplina}" value="#{da}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="mbean" value="#{disciplinaListagemControlador}" />
+	<ui:param name="tituloListagem" value="Listagem de Disciplinas" />
+	<ui:param name="novo" value="novo"></ui:param>
+
+	<ui:define name="formulario">
+		<p:dataTable value="#{disciplinaListagemControlador.lista}" var="d" rows="10" paginator="true" paginatorPosition="bottom">
+		
+			<p:column headerText="Descrição" style="width: 80%;" filterBy="#{d.titulo}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{d.titulo}" />
+			</p:column>
+			
+			<p:column headerText="Status" style="width: 8%" styleClass="colunaTabela">
+				<h:outputText value="#{d.status ? 'Ativo' : 'Inativo'}" />
+			</p:column>
+			
+			<p:column style="width: 10% !important">
+				<p:commandButton icon="ui-icon-pencil" action="#{disciplinaListagemControlador.selecionar}" ajax="false">
+					<f:setPropertyActionListener target="#{disciplinaCadastroControlador.entidade}" value="#{d}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-trash" action="#{disciplinaListagemControlador.excluir}" update="@form">
+					<f:setPropertyActionListener target="#{disciplinaListagemControlador.entidade}" value="#{d}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="tituloCadastro" value="Pagamentos" />
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Dados pagamento</legend>
+
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Curso:" />
+				<h:outputLabel
+					value="#{pagamentoCadastroControlador.alunoTurma.turma.matrizCurricular.curso.titulo}" />
+				<h:outputLabel value="Turma: " />
+				<h:outputLabel
+					value="#{pagamentoCadastroControlador.alunoTurma.turma.nome}" />
+				<h:outputLabel value="Aluno:" />
+				<h:outputLabel
+					value="#{pagamentoCadastroControlador.alunoTurma.pessoa.nome}" />
+				<p:column>
+					<p:outputLabel value="Valor" for="valor" />
+				</p:column>
+				<p:column>
+					<p:inputText id="valor" size="8"
+						value="#{pagamentoCadastroControlador.valor}" required="true" />
+					<p:watermark value="Valor" for="valor" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Observação" for="observacao" />
+				</p:column>
+				<p:column>
+					<p:inputTextarea id="observacao" style="width: 500px;"
+						value="#{pagamentoCadastroControlador.observacao}" />
+					<p:watermark value="Observação" for="observacao" />
+				</p:column>
+				<h:outputLabel value="Forma de Pagamento: " />
+				<p:selectOneMenu converter="#{formaPagamentoConversor}"
+					value="#{pagamentoCadastroControlador.formaDePagamento}">
+					<f:selectItems
+						value="#{pagamentoCadastroControlador.formasDePagamentos}"
+						var="formaPagamento" itemValue="#{formaPagamento}"
+						itemLabel="#{formaPagamento.descricao}" />
+					<p:ajax update="@form" />
+				</p:selectOneMenu>
+				<h:outputLabel id="labelParcelas" value="Parcelas: "
+					rendered="#{pagamentoCadastroControlador.formaDePagamento.qtdeParcelas > 0}" />
+				<p:selectOneMenu id="parcelas"
+					value="#{pagamentoCadastroControlador.qtdePagamento}"
+					rendered="#{pagamentoCadastroControlador.formaDePagamento.qtdeParcelas > 0}">
+					<f:selectItems value="#{pagamentoCadastroControlador.parcelas}"
+						var="qtde" itemLabel="#{qtde}" itemValue="#{qtde}" />
+				</p:selectOneMenu>
+				<h:outputLabel id="labelDataVencimento"
+					value="Data Vencimento (1º Parcela): "
+					rendered="#{pagamentoCadastroControlador.formaDePagamento.qtdeParcelas > 0}" />
+				<p:calendar id="dataVencimento"
+					rendered="#{pagamentoCadastroControlador.formaDePagamento.qtdeParcelas > 0}"
+					pattern="dd/MM/yyyy"
+					value="#{pagamentoCadastroControlador.dataVencimento}" />
+			</h:panelGrid>
+			<p:commandButton value="Salvar"
+				action="#{pagamentoCadastroControlador.salvar}" update="@form"
+				style="width: 115px;" />
+		</fieldset>
+
+		<p:dataTable value="#{pagamentoCadastroControlador.listaPagamentos}"
+					 var="pagamento" rows="10" 
+					 paginator="true" 
+					 id="dataTable">
+			<p:column headerText="Valor" style="width: 15%;">
+				<h:outputLabel value="#{pagamento.valor}" />
+			</p:column>
+			<p:column headerText="Observação" style="width: 20%; overflow: hidden;" >
+				<h:outputLabel value="#{pagamento.observacao}" />
+			</p:column>
+			<p:column headerText="Dt. Vencimento">
+				<h:outputLabel value="#{pagamento.dataVencimento}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+				</h:outputLabel>
+			</p:column>
+			<p:column headerText="Dt. Pagamento">
+				<h:outputLabel value="#{pagamento.dataPagamento}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+				</h:outputLabel>
+			</p:column>
+			<p:column style="width: 5%;">
+				<p:commandButton onclick="dialog.show();"
+					 update=":formGeral:dialogPagamento"
+					 icon="ui-icon-pencil">
+					<f:setPropertyActionListener
+						target="#{pagamentoCadastroControlador.entidadeSelecionada}"
+						value="#{pagamento}" />
+				</p:commandButton>
+				<p:commandButton action="#{pagamentoCadastroControlador.excluir}"
+					update="@form" icon="ui-icon-trash">
+					<f:setPropertyActionListener
+						target="#{pagamentoCadastroControlador.entidadeSelecionada}"
+						value="#{pagamento}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		
+		<p:dialog widgetVar="dialog" modal="true">
+			<h:panelGrid columns="2" id="dialogPagamento">
+				<h:outputLabel value="Valor: " />
+				<h:outputLabel value="#{pagamentoCadastroControlador.entidadeSelecionada.valor}" />
+				<h:outputLabel value="Observação" />
+				<p:inputTextarea value="#{pagamentoCadastroControlador.entidadeSelecionada.observacao}"
+								 style="width: 300px;" 
+								 disabled="true"/>
+				<h:outputLabel value="Data Vencimento: " />
+				<h:outputLabel value="#{pagamentoCadastroControlador.entidadeSelecionada.dataVencimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy" type="date"/>
+				</h:outputLabel>
+				<h:outputLabel value="Data Pagamento: " />
+				<p:calendar pattern="dd/MM/yyyy"
+					value="#{pagamentoCadastroControlador.entidadeSelecionada.dataPagamento}" />
+			</h:panelGrid>
+			<f:facet name="footer">
+				<p:commandButton action="#{pagamentoCadastroControlador.atualizarPagamento()}"
+								 onclick="dialog.cloase();"
+								 value="Salvar"/>
+				<p:commandButton onclick="dialog.close();"
+								 actionListener="#{pagamentoCadastroControlador.listarPagamentos()}"
+								 value="Cancelar"/>
+			</f:facet>				 
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="mbean" value="#{turmaCadastroControlador}" />
+	<ui:param name="salvar" value="salvar" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+	<ui:param name="tituloCadastro" value="Cadastro de Turma" />
+
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Dados da Turma</legend>
+			<h:panelGrid columns="2">
+
+				<p:column>
+					<p:outputLabel for="turmaApelido" value="Apelido" />
+				</p:column>
+				<p:column>
+					<p:inputText id="turmaApelido" value="#{turmaCadastroControlador.entidade.nome}" size="40" maxlength="14" required="true" />
+					<br />
+					<p:watermark for="turmaApelido" value="Apelido" />
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="previsaoDataInicio" value="Data Previsão Inicio" />
+				</p:column>
+				<p:column>
+					<p:calendar value="#{turmaCadastroControlador.entidade.previsaoDataInicio}" id="previsaoDataInicio" required="true" />
+					<br />
+					<p:watermark for="previsaoDataInicio" value="Data Previsão Inicio" />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="previsaoDataFim" value="Data Previsão Fim" />
+				</p:column>
+				<p:column>
+					<p:calendar value="#{turmaCadastroControlador.entidade.previsaoDataFim}" id="previsaoDataFim" required="true" />
+					<br />
+					<p:watermark for="previsaoDataFim" value="Data Previsão Fim" />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="dataRealInicio" value="Data Real Inicio" />
+				</p:column>
+				<p:column>
+					<p:calendar value="#{turmaCadastroControlador.entidade.dataRealInicio}" id="dataRealInicio" required="true" />
+					<br />
+					<p:watermark for="dataRealInicio" value="Data Real Inicio" />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="dataRealFim" value="Data Real Fim" />
+				</p:column>
+				<p:column>
+					<p:calendar value="#{turmaCadastroControlador.entidade.dataRealFim}" id="dataRealFim" required="true" />
+					<p:watermark for="dataRealFim" value="Data Real Fim" />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="completeProfessor" value="Professor" />
+				</p:column>
+				<p:column>
+					<p:autoComplete var="p" value="#{turmaCadastroControlador.entidade.pessoa}" forceSelection="true" converter="#{pessoaConversor}"
+						completeMethod="#{turmaCadastroControlador.completeProfessores}" itemValue="#{p}" itemLabel="#{p.nome}" id="completeProfessor" />
+					<p:watermark for="completeProfessor" value="Professor" />
+					<p:commandButton value=" ... " onclick="dialogProfessor.show()" type="button" />
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="selectMatriz" value="Matriz Curricular" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="selectMatriz" converter="#{matrizCurricularConversor}" effect="fold"
+						value="#{turmaCadastroControlador.entidade.matrizCurricular}" required="true">
+						<f:selectItem itemLabel="Selecione uma Matriz Curricular" itemValue="" />
+						<f:selectItems value="#{turmaCadastroControlador.matrizesCurriculares}" var="matriz" itemValue="#{matriz}"
+							itemLabel="#{matriz.curso.titulo} - #{matriz.nivel.descricao} - #{matriz.turno.descricao}" />
+					</p:selectOneMenu>
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="selectStatus" value="Status" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="selectStatus" converter="#{statusTurmaConversor}" effect="fold" value="#{turmaCadastroControlador.entidade.status}">
+						<f:selectItem itemLabel="Status" itemValue="" />
+						<f:selectItems value="#{turmaCadastroControlador.listaStatus}" var="s" itemValue="#{s}" itemLabel="#{s.descricao}" />
+					</p:selectOneMenu>
+				</p:column>
+			</h:panelGrid>
+		</fieldset>
+
+		<p:dialog id="pesquisaProfessor" header="Selecione um Professor..." widgetVar="dialogProfessor" modal="true" height="400">
+			<p:dataTable value="#{turmaCadastroControlador.listaDeProfessores}" var="p" rows="10" paginator="true" paginatorPosition="bottom" style="width: 80%">
+			
+				<p:column headerText="Nome" filterBy="#{p.nome}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{p.nome}" />
+				</p:column>
+
+				<p:column headerText="Formação Acadêmica" filterBy="#{p.formacao}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{p.formacao}" />
+				</p:column>
+
+				<p:column headerText="E-mail" filterBy="#{p.email}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{p.email}" />
+				</p:column>
+
+				<p:column style="width: 20%;">
+					<p:commandButton icon="ui-icon-pencil" onclick="dialogProfessor.hide()" update=":formGeral:completeProfessor" process="@this">
+						<f:setPropertyActionListener target="#{turmaCadastroControlador.entidade.pessoa}" value="#{p}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

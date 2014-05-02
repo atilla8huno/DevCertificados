@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:decorate template="/template/template.xhtml">
+	<ui:define name="conteudo">
+		<table style="text-align: center" cellspacing="10">
+			<tr>
+				<td style="height: 100px;"><p:commandLink id="linkCursos" action="#{cursosDisponiveisControlador.entrar()}" styleClass="indexLink">
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/cursos.png" />
+					</p:commandLink></td>
+
+				<td><p:commandLink id="certificados" action="#{meusCertificadosControlador.entrar}" styleClass="indexLink">
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/cert.png" />
+					</p:commandLink></td>
+				<td><p:commandLink id="linkMeusCursos" action="#{meusCursosControlador.entrar}" styleClass="indexLink">
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/meus_cursos.png" />
+					</p:commandLink></td>
+				<td><p:commandLink id="linkMeusDados" action="#{usuarioWebControlador.entrarAlterarDados}" styleClass="indexLink">
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/meu_dados.png" />
+						<f:setPropertyActionListener target="#{usuarioWebControlador.entidade}" value="#{loginControlador.usuarioSessao}" />
+					</p:commandLink></td>
+			</tr>
+
+			<tr>
+
+				<td><p:outputLabel for="linkCursos" value="Cursos Disponíveis" styleClass="linkLabel" /></td>
+				<td><h:outputLabel value="Certificados" styleClass="linkLabel" /></td>
+				<td><h:outputLabel value="Meus Cursos" styleClass="linkLabel" /></td>
+				<td><h:outputLabel value="Meus Dados" styleClass="linkLabel" /></td>
+
+			</tr>
+			<tr>
+				<td><p:commandLink id="linkAlterarSenha" action="#{alterarSenhaControlador.entrar}" styleClass="indexLink">
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/key.png" />
+					</p:commandLink></td>
+
+				<td><p:commandLink action="#{loginControlador.sair}" styleClass="indexLink">
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/logout.png" />
+					</p:commandLink></td>
+			</tr>
+
+			<tr>
+				<td><h:outputLabel value="Alterar Senha" styleClass="linkLabel" /></td>
+				<td><h:outputLabel value="Sair" styleClass="linkLabel" /></td>
+			</tr>
+
+		</table>
+	</ui:define>
+</ui:decorate>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="tituloListagem"
+		value="#{detalhesCursoControlador.entidade.curso.titulo} - #{detalhesCursoControlador.entidade.nivel.descricao}" />
+	<ui:define name="formulario">
+			<fieldset>
+				<legend>Detalhes do Curso</legend>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Descrição:" />
+					<p:spacer height="3px" />
+					<h:outputLabel
+						value="#{detalhesCursoControlador.entidade.curso.descricao}" />
+					<p:spacer height="5px" />
+					<h:outputLabel value="Nível:" />
+					<p:spacer height="3px" />
+					<h:outputLabel
+						value="#{detalhesCursoControlador.entidade.nivel.descricao}" />
+					<p:spacer height="5px" />
+					<h:outputLabel value="Turno:" />
+					<p:spacer height="3px" />
+					<h:outputLabel
+						value="#{detalhesCursoControlador.entidade.turno.descricao}" />
+					<p:spacer height="5px" />
+					<h:outputLabel value="Público Alvo:" />
+					<p:spacer height="3px" />
+					<h:outputLabel
+						value="#{detalhesCursoControlador.entidade.curso.publicoAlvo}" />
+					<p:spacer height="5px" />
+					<h:outputLabel value="Pré-Requisitos:" />
+					<p:spacer height="3px" />
+					<h:outputLabel
+						value="#{detalhesCursoControlador.entidade.curso.preRequisito}" />
+					<p:spacer height="5px" />
+					<h:outputLabel value="Aluno após Curso:" />
+					<p:spacer height="3px" />
+					<h:outputLabel
+						value="#{detalhesCursoControlador.entidade.curso.alunoAposCurso}" />
+				</h:panelGrid>
+				<p:spacer height="10px"/>
+				<p:dataTable var="d" value="#{detalhesCursoControlador.listaDisciplina}">
+					<f:facet name="header">
+						<h:outputLabel value="Disciplinas" />
+					</f:facet>
+					<p:column headerText="Nome"
+						 	  width="90%">
+						<h:outputLabel value="#{d.disciplina.titulo}" />
+					</p:column>
+					<p:column headerText="Carga Horária" 
+							  footerText="Total: #{detalhesCursoControlador.cargaHoraria} Hrs."
+							  width="10%">
+						<h:outputLabel value="#{d.cargaHoraria} Hrs." />
+					</p:column>
+				</p:dataTable>
+				<p:spacer height="20px"/>
+				<p:dataTable var="t" 
+							 value="#{detalhesCursoControlador.listaTurma}">
+							 <f:facet name="header">
+							 	<h:outputLabel value="Turmas" />
+							 </f:facet>
+					<p:column headerText="Nome">
+						<h:outputLabel value="#{t.nome}" />
+					</p:column>
+					<p:column headerText="Professor" width="30%">
+						<h:outputLabel value="#{t.pessoa.nome}" />
+					</p:column>
+					<p:column headerText="Turno" width="7%">
+						<h:outputLabel value="#{t.matrizCurricular.turno.descricao}" />
+					</p:column>			 
+					<p:column headerText="Data Inicio"
+							  width="10%">
+						<h:outputLabel value="#{t.previsaoDataInicio}">
+							<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR"/>
+						</h:outputLabel>
+					</p:column>
+					<p:column width="8%">
+						<p:commandLink action="#{matriculaCadastroControlador.entrar()}" ajax="false" value="Matricular-se" immediate="true">
+							<f:setPropertyActionListener target="#{matriculaCadastroControlador.entidade.turma}" value="#{t}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</fieldset>
+			<fieldset>
+				<legend>Entrar em contato</legend>
+				<ui:include src="/formularios/formularioEntrarEmContato.xhtml" />
+				<p:commandButton value="Enviar" actionListener="#{contatoControlador.entrarEmContato}" ajax="false" />
+			</fieldset>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="pragma" content="no-cache" />
+
+	<link type="text/css" rel="stylesheet"
+		href="${facesContext.externalContext.requestContextPath}/css/layout.css" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{request.contextPath}/images/devschool.ico" />
+
+	<style type="text/css">
+		html,body {
+		background-image: url('../images/contact-map.png') !important;
+		background-repeat: repeat;
+	}
+	</style>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<script
+		src="${facesContext.externalContext.requestContextPath}/js/popup.js"
+		type="text/javascript" />
+	<title>DevSchool Tecnologia</title>
+</h:head>
+
+
+<h:body onload="login.show()">
+	<p:dialog widgetVar="login" modal="true" closable="false"
+		resizable="false" position="center" minHeight="300"
+		maximizable="false" showEffect="fade" hideEffect="explode"
+		showHeader="false" draggable="false" styleClass="loginDialog">
+
+		<h:form id="formUsuario" prependId="false">
+			<h:panelGrid id="painelLogin">
+				<p:focus context="painelLogin" />
+				<p:graphicImage width="249" styleClass="logoLogin" />
+
+				<p:inputText id="usuario" tabindex="1"
+					value="#{loginControlador.usuario.email}" required="true"
+					requiredMessage="Campo obrigatorio" update="messages"
+					styleClass="inputLogin" style="margin-top: 10%;">
+					<p:watermark for="usuario" value="Usuário"></p:watermark>
+				</p:inputText>
+
+				<p:password styleClass="inputLogin" tabindex="2" id="senha" 
+					value="#{loginControlador.usuario.senha}" maxlength="23"
+					required="true" requiredMessage="Campo obrigatorio"
+					update="messages">
+					<p:watermark for="senha" value="Senha"></p:watermark>
+					<p:commandButton id="entrar" tabindex="3" styleClass="loginBotao" ajax="false"
+						value="" action="#{loginControlador.logar}" update=":formUsuario" />
+				</p:password>
+			</h:panelGrid>
+		</h:form>
+		<h:panelGrid>
+			<h:form>
+				<p:commandLink id="cadastreSe" tabindex="4" label="Cadastre-se"
+					value="Cadastre-se!" action="#{usuarioWebControlador.entrar}"
+					styleClass="cadastreSe" ajax="true" />
+			</h:form>
+		</h:panelGrid>
+	</p:dialog>
+</h:body>
+
+</html>

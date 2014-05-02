@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="tituloCadastro" value="Reativação da Conta DevSchool" />
+	<ui:param name="mbean" value="#{reativarContaControlador}" />
+	<ui:param name="cancelar" value="cancelar" />
+	
+	<ui:define name="formulario">
+		<fieldset ><legend>Ativação/Desativação da Conta DevSchool Tecnologia</legend>
+			<h:panelGrid columns="3">
+				<p:autoComplete var="a" value="#{reativarContaControlador.aluno}" required="true" forceSelection="true" converter="#{pessoaConversor}"
+					completeMethod="#{reativarContaControlador.completeAlunos}" itemValue="#{a}" itemLabel="#{a.nome}" id="completeAluno">
+					<p:ajax event="itemSelect" listener="#{reativarContaControlador.verificaPendencias}" />
+				</p:autoComplete>
+				<p:watermark for="completeAluno" value="Aluno" />
+				<p:commandButton value=" ... " onclick="dialogAluno.show()" type="button"/>
+			</h:panelGrid><br/>
+		</fieldset>
+		
+		<p:dialog id="pesquisaAluno" header="Selecione um Aluno..." widgetVar="dialogAluno" modal="true" height="400">
+			<p:dataTable value="#{reativarContaControlador.listaDeAlunos}" var="a" rows="10" paginator="true" paginatorPosition="bottom"
+				style="width: 80%">
+				<p:column headerText="Nome" filterBy="#{a.nome}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{a.nome}" />
+				</p:column>
+				
+				<p:column headerText="CPF" filterBy="#{a.cpf}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{a.cpf}" />
+				</p:column>
+				
+				<p:column headerText="E-mail" filterBy="#{a.email}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{a.email}" />
+				</p:column>
+				
+				<p:column style="width: 20%;">
+					<p:commandButton icon="ui-icon-pencil" onclick="dialogAluno.hide()" action="#{reativarContaControlador.verificaPendencias}" update="@all" immediate="true">
+						<f:setPropertyActionListener target="#{reativarContaControlador.aluno}" value="#{a}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+	<ui:define name="botoesAuxiliares">
+		<p:commandButton value="Ativar/Desativar Conta" action="#{reativarContaControlador.ativarDesativarContaADM}" ajax="false" icon="ui-icon-disk"/>
+	</ui:define>
+</ui:composition>
+</html>

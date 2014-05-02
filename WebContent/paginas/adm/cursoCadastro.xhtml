@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="mbean" value="#{cursoCadastroControlador}" />
+
+	<ui:param name="salvar" value="salvar" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+
+	<ui:param name="tituloCadastro" value="Cadastro de Curso" />
+
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Dados do Curso</legend>
+			<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+				<p:column>
+					<p:outputLabel for="titulo" value="Título" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{cursoCadastroControlador.entidade.titulo}" size="62" maxlength="45" required="true" requiredMessage="#{msg.campoObrigatorio} Título." id="titulo" />
+					<br />
+					<p:watermark for="titulo" value="Título" />
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="descricao" value="Descrição" />
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{cursoCadastroControlador.entidade.descricao}" rows="6" maxlength="300" cols="60" id="descricao"
+						counter="counterDescricao" autoResize="false" counterTemplate="{0} carácteres restantes." required="true" requiredMessage="#{msg.campoObrigatorio} Descrição."/>
+					<p:watermark for="descricao" value="Descrição" />
+					<br />
+					<h:outputText styleClass="conter" id="counterDescricao" />
+				</p:column>
+				<p:column>
+					<p:outputLabel for="publicoAlvo" value="Publico Alvo" />
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{cursoCadastroControlador.entidade.publicoAlvo}" rows="6" maxlength="300" cols="60" id="publicoAlvo"
+						counter="counterPublicoAlvo" autoResize="false" counterTemplate="{0} carácteres restantes." required="true" requiredMessage="#{msg.campoObrigatorio} Público Alvo."/>
+					<p:watermark for="publicoAlvo" value="Publico Alvo" />
+					<br />
+					<h:outputText styleClass="conter" id="counterPublicoAlvo" />
+
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="preRequisito" value="Pré-Requisitos" />
+				</p:column>
+
+				<p:column>
+					<p:inputTextarea value="#{cursoCadastroControlador.entidade.preRequisito}" rows="6" maxlength="300" cols="60" id="preRequisito"
+						counter="counterPreRequisito" autoResize="false" counterTemplate="{0} carácteres restantes." required="true" requiredMessage="#{msg.campoObrigatorio} Pré-requisitos."/>
+					<p:watermark for="preRequisito" value="Pré-Requisitos" />
+					<br />
+					<h:outputText styleClass="conter" id="counterPreRequisito" />
+
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="alunoAposCurso" value="Aluno Após o Curso" />
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{cursoCadastroControlador.entidade.alunoAposCurso}" rows="6" maxlength="300" cols="60" id="alunoAposCurso"
+						counter="counterAlunoPosCurso" autoResize="false" counterTemplate="{0} carácteres restantes." required="true" requiredMessage="#{msg.campoObrigatorio} Aluno Após Curso."/>
+					<p:watermark for="alunoAposCurso" value="Aluno Após o Curso" />
+					<br />
+					<h:outputText styleClass="conter" id="counterAlunoPosCurso" />
+
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="investimento" value="Investimento" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{cursoCadastroControlador.entidade.investimento}" size="20" id="investimento">
+						<f:convertNumber minFractionDigits="2" locale="pt_BR" />
+					</p:inputText>
+					<br />
+					<p:watermark for="investimento" value="Investimento" />
+				</p:column>
+			</h:panelGrid>
+
+		</fieldset>
+		<fieldset>
+			<legend>Imagem do Curso</legend>
+			<p:fileUpload label="Procurar" fileUploadListener="#{cursoCadastroControlador.fileUpload}" id="fileUpload" sizeLimit="600000" 
+				dragDropSupport="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="painel" invalidSizeMessage="Tamanho máximo de arquivo 600KB"
+				invalidFileMessage="Tipo de arquivo inválido!" />
+			<h:panelGrid id="painel">
+				<h:outputLabel value="Imagem carregada" />
+				<p:graphicImage styleClass="mostraImagem" id="imagemCurso" width="100" height="100" value="#{cursoCadastroControlador.entidade.mostraImagem}"></p:graphicImage>
+			</h:panelGrid>
+		</fieldset>
+	</ui:define>
+</ui:composition>
+</html>

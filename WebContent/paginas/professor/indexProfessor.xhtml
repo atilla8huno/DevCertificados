@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:decorate template="/template/template.xhtml">
+
+	<ui:define name="conteudo">
+		<table style="text-align: center">
+			<!-- LINHA COM IMAGENS -->
+			<tr>
+				<td><p:commandLink id="linkCursos" action="#{cursoListagemControlador.entrarListaCursos}" styleClass="indexLink">
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/Safari.png" />
+					</p:commandLink></td>
+				<td><p:commandLink id="certificados" action="#{minhasTurmasControlador.entrar}" styleClass="indexLink">
+						<f:setPropertyActionListener target="#{minhasTurmasControlador.professor}" value="#{loginControlador.usuarioSessao}" />
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/Safari.png" />
+					</p:commandLink></td>
+
+				<td><p:commandLink id="certificadosProf" action="#{certificadosProfessorControlador.entrar}" styleClass="indexLink">
+						<f:setPropertyActionListener target="#{certificadosProfessorControlador.professor}" value="#{loginControlador.usuarioSessao}" />
+						<p:graphicImage width="140" height="140" styleClass="imagemlink" url="/images/Safari.png" />
+					</p:commandLink></td>
+
+			</tr>
+				<!-- LINHA COM LABEL DAS IMAGENS -->
+			<tr>
+				<td><h:outputLabel value="Cursos Disponíveis" styleClass="linkLabel" /></td>
+				<td><h:outputLabel value="Minhas Turmas" styleClass="linkLabel" /></td>
+				<td><h:outputLabel value="Meus Certificados de Professor" styleClass="linkLabel" /></td>
+
+			</tr>
+		</table>
+	</ui:define>
+</ui:decorate>
+</html>

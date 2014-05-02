@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="tituloListagem"
+		value="#{detalhesMeuCursoControlador.entidade.curso.titulo} - #{detalhesMeuCursoControlador.entidade.nivel.descricao}" />
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Detalhes do Meu Curso</legend>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Descrição:" />
+				<p:spacer height="3px" />
+				<h:outputLabel
+					value="#{detalhesMeuCursoControlador.entidade.curso.descricao}" />
+				<p:spacer height="5px" />
+				<h:outputLabel value="Nível:" />
+				<p:spacer height="3px" />
+				<h:outputLabel
+					value="#{detalhesMeuCursoControlador.entidade.nivel.descricao}" />
+				<p:spacer height="5px" />
+				<h:outputLabel value="Turno:" />
+				<p:spacer height="3px" />
+				<h:outputLabel
+					value="#{detalhesMeuCursoControlador.entidade.turno.descricao}" />
+				<p:spacer height="5px" />
+				<h:outputLabel value="Público Alvo:" />
+				<p:spacer height="3px" />
+				<h:outputLabel
+					value="#{detalhesMeuCursoControlador.entidade.curso.publicoAlvo}" />
+				<p:spacer height="5px" />
+				<h:outputLabel value="Pré-Requisitos:" />
+				<p:spacer height="3px" />
+				<h:outputLabel
+					value="#{detalhesMeuCursoControlador.entidade.curso.preRequisito}" />
+				<p:spacer height="5px" />
+				<h:outputLabel value="Aluno após Curso:" />
+				<p:spacer height="3px" />
+				<h:outputLabel
+					value="#{detalhesMeuCursoControlador.entidade.curso.alunoAposCurso}" />
+			</h:panelGrid>
+			<p:spacer height="10px" />
+			<p:dataTable var="d"
+				value="#{detalhesMeuCursoControlador.listaDisciplina}">
+				<f:facet name="header">
+					<h:outputLabel value="Disciplinas" />
+				</f:facet>
+				<p:column headerText="Nome" width="90%">
+					<h:outputLabel value="#{d.disciplina.titulo}" />
+				</p:column>
+				<p:column headerText="Carga Horária"
+					footerText="Total: #{detalhesMeuCursoControlador.cargaHoraria} Hrs."
+					width="10%">
+					<h:outputLabel value="#{d.cargaHoraria} Hrs." />
+				</p:column>
+			</p:dataTable>
+			<p:spacer height="20px" />
+			<p:dataTable var="a"
+				value="#{detalhesMeuCursoControlador.listaTurma}">
+				<f:facet name="header">
+					<h:outputLabel value="Minhas Turmas" />
+				</f:facet>
+				<p:column headerText="Nome">
+					<h:outputLabel value="#{a.turma.nome}" />
+				</p:column>
+				<p:column headerText="Professor" width="30%">
+					<h:outputLabel value="#{a.turma.pessoa.nome}" />
+				</p:column>
+				<p:column headerText="Turno" width="7%">
+					<h:outputLabel value="#{a.turma.matrizCurricular.turno.descricao}" />
+				</p:column>
+				<p:column headerText="Data Inicio" width="10%">
+					<h:outputLabel value="#{a.turma.previsaoDataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" />
+					</h:outputLabel>
+				</p:column>
+				<p:column width="8%">
+					<p:commandLink onclick="notaDialog.show();"
+						value="Nota" immediate="true"
+						update=":formListagem:panelNota">
+						<f:setPropertyActionListener
+							target="#{detalhesMeuCursoControlador.alunoTurma}" value="#{a}" />
+					</p:commandLink>
+					<p:spacer width="5px;"/>
+					<p:commandLink onclick="pagamentosDialog.show();"
+						value="Pagamentos" immediate="true"
+						update=":formListagem:pagamentos">
+						<f:setPropertyActionListener
+							target="#{detalhesMeuCursoControlador.alunoTurma}" value="#{a}" />
+					</p:commandLink>
+					<p:spacer width="5px;"/>
+					<p:commandLink onclick="frequenciaDialog.show();"
+						value="Frequência" immediate="true"
+						update=":formListagem:frequencia">
+						<f:setPropertyActionListener
+							target="#{detalhesMeuCursoControlador.alunoTurma}" value="#{a}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</fieldset>
+		<fieldset>
+			<legend>Entrar em contato</legend>
+			<ui:include src="/formularios/formularioEntrarEmContato.xhtml" />
+			<p:commandButton value="Enviar"
+				actionListener="#{contatoControlador.entrarEmContato}" ajax="false" />
+		</fieldset>
+
+		<p:dialog modal="true" widgetVar="notaDialog">
+			<p:panel header="Nota - #{detalhesMeuCursoControlador.alunoTurma.turma.nome}" id="panelNota">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Nota:" />
+					<h:outputLabel
+						value="#{detalhesMeuCursoControlador.alunoTurma.porcentagemAproveitamento}" />
+				</h:panelGrid>
+			</p:panel>
+		</p:dialog>
+
+		<p:dialog modal="true" widgetVar="pagamentosDialog" position="center">
+			<p:dataTable id="pagamentos"
+						 value="#{detalhesMeuCursoControlador.pagamentos}" 
+						 var="p">
+						 <f:facet name="header">
+						 	<p:outputLabel value="Pagamentos - #{detalhesMeuCursoControlador.alunoTurma.turma.nome}"/>
+						 </f:facet>
+				<p:column headerText="Observação">
+					<h:outputLabel value="#{p.observacao}" />
+				</p:column>
+				<p:column headerText="Data Vencimento">
+					<h:outputLabel value="#{p.dataVencimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" type="date"/>
+					</h:outputLabel>
+				</p:column>
+				<p:column headerText="Data Pagamento">
+					<h:outputLabel value="#{p.dataPagamento}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" type="date"/>
+					</h:outputLabel>
+				</p:column>
+				<p:column headerText="Valor">
+					<h:outputLabel value="#{p.valor}">
+						<f:convertNumber type="currency"/>
+					</h:outputLabel>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+		
+		<p:dialog modal="true" widgetVar="frequenciaDialog" position="center">
+			<p:dataTable id="frequencia"
+						 value="#{detalhesMeuCursoControlador.frequencia}" 
+						 var="f">
+						 <f:facet name="header">
+						 	<p:outputLabel value="Frequência - #{detalhesMeuCursoControlador.alunoTurma.turma.nome}"/>
+						 </f:facet>
+				<p:column headerText="Data">
+					<h:outputLabel value="#{f.aula.dataAula}">
+						<f:convertDateTime pattern="dd/MM/yyyy" type="date"/>
+					</h:outputLabel>
+				</p:column>
+				<p:column >
+					<h:outputLabel value="#{f.falta ? 'Presente' : 'Falta'}"/>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

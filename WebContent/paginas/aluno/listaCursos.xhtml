@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+<ui:param name="tituloListagem" value="Listagem de cursos" />
+	<ui:define name="formulario">
+		
+			<p:dataGrid var="matrizCurricular" value="#{cursosDisponiveisControlador.listaMatrizes}" columns="3" rows="12" paginator="true" paginatorPosition="top"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="9,12,15">
+			
+				<div style="margin-left: 10px;">
+					<p:commandLink id="link" ajax="false" action="#{detalhesCursoControlador.entrar}">
+						<div style="float: left;">
+							<h:graphicImage lang="png" width="120px;" height="120px;"
+								styleClass="mostraImagem"
+								value="/images/curso/#{matrizCurricular.curso.id}.png" />
+						</div>
+						<f:setPropertyActionListener target="#{detalhesCursoControlador.entidade}" value="#{matrizCurricular}"/>
+					</p:commandLink>
+					<div
+						style="float: left; vertical-align: text-top; margin-left: 10px; margin-top: 5px; background: transparent;">
+						<h:outputLabel value="#{matrizCurricular.curso.titulo}"
+							style="font-size: 20px;
+											   text-transform: uppercase;
+											   font-family: arial, helvetica, serif;
+											   font-weight: bold;" />
+						<br />
+						<h:outputLabel value="#{matrizCurricular.nivel.descricao}"
+							style="font-size: 15px;
+											  font-family: arial, helvetica, serif;" />
+					</div>
+				</div>
+			
+			</p:dataGrid>
+
+	</ui:define>
+</ui:composition>
+</html>

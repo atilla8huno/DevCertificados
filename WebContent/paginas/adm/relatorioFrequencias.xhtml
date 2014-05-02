@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateRelatorio.xhtml">
+	<ui:param name="mbean" value="#{relatorioFrequenciasControlador}" />
+
+	<ui:param name="emitirRelatorio" value="emitirRelatorio" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+
+	<ui:param name="titulo" value="Relatório de Frequências" />
+
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Filtros para pesquisa</legend>
+			<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+				
+				<p:column>
+					<p:outputLabel for="completeAluno" value="Aluno" />
+				</p:column>
+				<p:column>
+					<p:autoComplete var="a" value="#{relatorioFrequenciasControlador.aluno}" forceSelection="true" converter="#{pessoaConversor}"
+						completeMethod="#{relatorioFrequenciasControlador.completeAlunos}" itemValue="#{a}" itemLabel="#{a.nome}" id="completeAluno">
+						<p:ajax event="itemSelect" listener="#{relatorioFrequenciasControlador.atualizaComboTurmas}" update="comboTurmas" />
+					</p:autoComplete>
+					<p:watermark for="completeAluno" value="Aluno" />
+					<p:commandButton value=" ... " onclick="dialogAluno.show()" type="button" />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="curso" value="Curso:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="curso" value="#{relatorioFrequenciasControlador.matrizCurricular.curso.titulo}" readonly="true"/>
+					<p:watermark for="curso" value="Curso" />
+					<p:commandButton value=" ... " onclick="dialogCurso.show()" type="button"/>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="comboTurmas" value="Turma:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="comboTurmas" converter="#{turmaConversor}" effect="fold" value="#{relatorioFrequenciasControlador.turma}" style="min-width: 210px;">
+						<f:selectItem itemLabel="Selecione uma Turma" itemValue=""/>
+						<f:selectItems value="#{relatorioFrequenciasControlador.turmas}" var="turma" itemValue="#{turma}" 
+							itemLabel="#{turma.nome} - #{turma.dataRealInicio}"/>
+					</p:selectOneMenu>
+				</p:column>
+			</h:panelGrid>
+		</fieldset>
+		
+		<p:dialog id="pesquisaCurso" header="Selecione um Curso..." widgetVar="dialogCurso" modal="true" height="400">
+			<p:dataTable value="#{relatorioFrequenciasControlador.cursos}" var="c" rows="10" paginator="true" paginatorPosition="bottom"
+				style="width: 80%">
+				<p:column headerText="Título" filterBy="#{c.curso.titulo}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{c.curso.titulo}" />
+				</p:column>
+				
+				<p:column headerText="Descrição" filterBy="#{c.curso.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.curso.descricao}" />
+				</p:column>
+
+				<p:column headerText="Investimento" filterBy="#{c.curso.investimento}" styleClass="colunaTabela" filterStyle="width: 80%;">
+					<h:outputText value="#{c.curso.investimento}">
+						<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column style="width: 20%;">
+					<p:commandButton icon="ui-icon-pencil" onclick="dialogCurso.hide()" action="#{relatorioFrequenciasControlador.atualizaComboTurmas}" update="@all">
+						<f:setPropertyActionListener target="#{relatorioFrequenciasControlador.matrizCurricular}" value="#{c}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+		
+		<p:dialog id="pesquisaAluno" header="Selecione um Aluno..." widgetVar="dialogAluno" modal="true" height="400">
+			<p:dataTable value="#{relatorioFrequenciasControlador.alunos}" var="a" rows="10" paginator="true" paginatorPosition="bottom" style="width: 80%">
+				<p:column headerText="Nome" filterBy="#{a.nome}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{a.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF" filterBy="#{a.cpf}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{a.cpf}" />
+				</p:column>
+
+				<p:column headerText="E-mail" filterBy="#{a.email}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{a.email}" />
+				</p:column>
+
+				<p:column style="width: 20%;">
+					<p:commandButton icon="ui-icon-pencil" onclick="dialogAluno.hide()" action="#{relatorioFrequenciasControlador.atualizaComboTurmas}" update="@all">
+						<f:setPropertyActionListener target="#{relatorioFrequenciasControlador.aluno}" value="#{a}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

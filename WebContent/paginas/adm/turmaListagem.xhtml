@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="mbean" value="#{turmaListagemControlador}" />
+	<ui:param name="tituloListagem" value="Listagem de Turmas" />
+	<ui:param name="novo" value="novo"/>
+	
+	<ui:define name="formulario">
+		<p:dataTable value="#{turmaListagemControlador.lista}" var="t" rows="10" paginator="true" paginatorPosition="bottom">
+			<p:column headerText="Apelido" filterBy="#{t.nome}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{t.nome}" />
+			</p:column>
+			
+			<p:column headerText="Data Real Inicio" filterBy="#{t.dataRealInicio}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{t.dataRealInicio}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+				</h:outputText>
+			</p:column>
+			
+			<p:column headerText="Data Real Fim" filterBy="#{t.dataRealFim}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{t.dataRealFim}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+				</h:outputText>
+			</p:column>
+			
+			<p:column headerText="Professor" filterBy="#{t.pessoa.nome}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{t.pessoa.nome}" />
+			</p:column>
+			
+			<p:column headerText="Matriz Curricular" styleClass="colunaTabela" filterStyle="width: 80%;"
+				filterBy="#{t.matrizCurricular.curso.titulo}">
+				<h:outputText value="#{t.matrizCurricular.curso.titulo} - #{t.matrizCurricular.nivel.descricao} - #{t.matrizCurricular.turno.descricao}" />
+			</p:column>
+			
+			<p:column style="width: 10%;">
+				<p:commandButton icon="ui-icon-pencil" action="/paginas/adm/turmaCadastro.jsf?faces-redirect=true" ajax="false">
+					<f:setPropertyActionListener target="#{turmaCadastroControlador.entidade}" value="#{t}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-trash" action="#{turmaListagemControlador.excluir}" update="@form">
+					<f:setPropertyActionListener target="#{turmaListagemControlador.entidade}" value="#{t}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

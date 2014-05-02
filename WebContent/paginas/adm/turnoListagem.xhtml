@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="mbean" value="#{turnoListagemControlador}" />
+	<ui:param name="tituloListagem" value="Listagem de Turnos" />
+	<ui:param name="novo" value="novo"/>
+	
+	<ui:define name="formulario">
+		<p:dataTable value="#{turnoListagemControlador.lista}" var="t" rows="10" paginator="true" paginatorPosition="bottom">
+			
+			<p:column headerText="Descrição" filterBy="#{t.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{t.descricao}" />
+			</p:column>
+			
+			<p:column headerText="Sigla" filterBy="#{t.sigla}" styleClass="colunaTabela" filterStyle="width: 10%;">
+				<h:outputText value="#{t.sigla}" />
+			</p:column>
+			
+			<p:column style="width: 10%;">
+				<p:commandButton icon="ui-icon-pencil" action="/paginas/adm/turnoCadastro.jsf?faces-redirect=true" ajax="false">
+					<f:setPropertyActionListener target="#{turnoCadastroControlador.entidade}" value="#{t}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-trash" action="#{turnoListagemControlador.excluir}" update="@form">
+					<f:setPropertyActionListener target="#{turnoListagemControlador.entidade}" value="#{t}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

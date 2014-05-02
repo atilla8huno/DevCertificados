@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="tituloListagem" value="Consulta de Certificados por Curso/Turma" />
+	<ui:param name="mbean" value="#{certificadosDaTurmaControlador}" />
+
+	<ui:define name="formulario">
+		<h:form prependId="false" id="formCertificado" acceptcharset="ISO-8859-1">
+		<fieldset><legend>Dados do Curso/Turma</legend>
+			<h:panelGrid columns="1">
+				<h:panelGrid columns="3">
+					<p:inputText id="curso" value="#{certificadosDaTurmaControlador.matrizCurricular.curso.titulo}" readonly="true"/>
+					<p:watermark for="curso" value="Curso" />
+					<p:commandButton value=" ... " onclick="dialogCurso.show()" type="button"/>
+				</h:panelGrid><br/>
+				
+				<p:selectOneMenu id="comboTurmas" converter="#{turmaConversor}" effect="fold" value="#{certificadosDaTurmaControlador.turma}" style="min-width: 210px;">
+					<f:selectItem itemLabel="Selecione uma Turma" itemValue=""/>
+					<f:selectItems value="#{certificadosDaTurmaControlador.turmas}" var="turma" itemValue="#{turma}" 
+						itemLabel="#{turma.nome} - #{turma.dataRealInicio}"/>
+					<p:ajax listener="#{certificadosDaTurmaControlador.atualizaComboAlunos}" update="alunos"/>
+				</p:selectOneMenu><br/>
+				
+				<p:selectCheckboxMenu id="alunos" widgetVar="alunos" label="Alunos" converter="#{alunoTurmaConversor}" filter="true" filterMatchMode="startsWith" 
+					panelStyle="width:220px" value="#{certificadosDaTurmaControlador.alunosSelecionados}">
+					<f:selectItems value="#{certificadosDaTurmaControlador.alunos}" var="aluno" itemValue="#{aluno}" itemLabel="#{aluno.pessoa.nome}"/>
+				</p:selectCheckboxMenu><br/>
+				
+				
+			</h:panelGrid>
+			
+			</fieldset>
+			
+			<fieldset><legend>Controle</legend>
+			<p:commandButton value="Buscar Certificados" action="#{certificadosDaTurmaControlador.emitirCertificado}" oncomplete="abrirPopupRelatorio();" />
+			</fieldset>
+			
+			<p:dialog id="pesquisaCurso" header="Selecione um Curso..." widgetVar="dialogCurso" modal="true" height="400">
+				<p:dataTable value="#{certificadosDaTurmaControlador.cursos}" var="c" rows="10" paginator="true" paginatorPosition="bottom"
+					style="width: 80%">
+					<p:column headerText="Título" filterBy="#{c.curso.titulo}" styleClass="colunaTabela" filterStyle="width: 40%;">
+						<h:outputText value="#{c.curso.titulo}" />
+					</p:column>
+					
+					<p:column headerText="Descrição" filterBy="#{c.curso.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+						<h:outputText value="#{c.curso.descricao}" />
+					</p:column>
+	
+					<p:column headerText="Investimento" filterBy="#{c.curso.investimento}" styleClass="colunaTabela" filterStyle="width: 80%;">
+						<h:outputText value="#{c.curso.investimento}">
+							<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column style="width: 20%;">
+						<p:commandButton icon="ui-icon-pencil" onclick="dialogCurso.hide()" action="#{certificadosDaTurmaControlador.atualizaComboTurmas}" update="@all">
+							<f:setPropertyActionListener target="#{certificadosDaTurmaControlador.matrizCurricular}" value="#{c}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

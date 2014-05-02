@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<p:menuButton value="Bem-vindo(a), #{loginControlador.usuarioSessao.nome}!" icon="ui-icon-extlink" rendered="#{loginControlador.logado}">
+		<p:menuitem value="Meus Dados" icon="ui-icon-disk" action="#{usuarioWebControlador.entrarAlterarDados}">
+			<f:setPropertyActionListener target="#{usuarioWebControlador.entidade}" value="#{loginControlador.usuarioSessao}" />
+		</p:menuitem>
+		<p:menuitem value="Meus Cursos" icon="ui-icon-folder-open" ajax="false" action="#{meusCursosControlador.entrar}"/>
+		<p:menuitem value="Certificados" icon="ui-icon-arrowthickstop-1-s" ajax="false" action="#{meusCertificadosControlador.entrar}"/>
+		<p:menuitem value="Configurações" icon="ui-icon-wrench" ajax="false" action="#{configuracaoControlador.entrar}">
+			<f:setPropertyActionListener target="#{configuracaoControlador.entidade}" value="#{loginControlador.usuarioSessao}" />
+			<f:setPropertyActionListener target="#{configuracaoControlador.usuario}" value="#{loginControlador.usuarioSessao}" />
+		</p:menuitem>
+		<p:separator />
+		<p:menuitem value="Sair" action="#{loginControlador.sair}" icon="ui-icon-close" />
+	</p:menuButton>
+</ui:fragment>

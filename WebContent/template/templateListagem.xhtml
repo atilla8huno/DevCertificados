@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="conteudo">
+		<p:panel id="painelTemplate" header="#{tituloListagem}">
+		<div id="conteudoListagem" align="center">
+			<h:form acceptcharset="ISO-8859-1" id="formListagem">
+				<ui:insert name="formulario" />
+				<p:spacer height="10"/>
+				<p:panel styleClass="panelControle"  rendered="#{novo != null}">
+				<fieldset id="fieldSet" >
+				<legend >Controle</legend>
+					<p:commandButton id="novo" action="#{mbean[novo]}" value="Novo" icon="ui-icon-plusthick" immediate="true" rendered="#{novo != null}"/>
+				</fieldset>
+				</p:panel> 
+			</h:form>
+		</div>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

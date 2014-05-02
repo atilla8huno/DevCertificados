@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+	<p:menubar rendered="#{loginControlador.logado}">
+		<p:submenu label="Aluno" >
+			<p:menuitem value="Certificados" action="#{meusCertificadosControlador.entrarComFiltroDeAluno}" ajax="false" />
+			<p:menuitem value="Certificados da Turma" action="#{certificadosDaTurmaControlador.entrar}" ajax="false" />
+			<p:menuitem value="Transferência de Turma" action="#{transferenciaTurmaControlador.entrar}" ajax="false" />
+			<p:menuitem value="Ativar/Desativar Conta" action="#{reativarContaControlador.entrarModuloADM}" ajax="false" />
+			<p:menuitem value="Ativar/Desativar Matrícula" action="#{matriculaListagemControlador.entrar}" ajax="false" />
+		</p:submenu>
+		
+		<p:submenu label="Professor">
+			<p:menuitem value="Turmas do Professor" action="#{professorListagemControlador.entrarTurmasDoProfessor}" ajax="false" />
+			<p:menuitem value="Certificados do Professor" action="#{certificadosProfessorControlador.entrarComFiltroDeProfessor}" ajax="false" />
+		</p:submenu>
+		
+		<p:submenu label="Administrador" >
+			<p:submenu label="Cadastros" >
+				<p:menuitem value="Disciplina" action="#{disciplinaListagemControlador.entrar}" immediate="true" />
+				<p:menuitem value="Turno" action="#{turnoListagemControlador.entrar}" immediate="true" />
+				<p:menuitem value="Nivel" action="#{nivelListagemControlador.entrar}" immediate="true" />
+				<p:menuitem value="Curso" action="#{cursoListagemControlador.entrar}" immediate="true" />
+				<p:menuitem value="Professor" action="#{professorListagemControlador.entrar}" immediate="true" />
+				<p:menuitem value="Matriz Curricular" action="#{matrizCurricularListagemControlador.entrar}" immediate="true" />
+				<p:menuitem value="Turma" action="#{turmaListagemControlador.entrar}" immediate="true" />
+				<p:menuitem value="Pagamento" action="#{pagamentoListagemControlador.entrar}" immediate="true" />
+				<p:menuitem value="Aula" action="#{aulaListagemControlador.entrar}" immediate="true" />
+			</p:submenu>
+			
+			<p:submenu label="Auditoria">
+				<p:menuitem value="Auditorias de Erros" action="/paginas/auditoria.jsf?faces-redirect=true" ajax="false" />
+			</p:submenu>
+		</p:submenu>
+		
+		<p:submenu label="Relatórios">
+			<p:menuitem value="Usuários" action="#{relatorioUsuariosControlador.entrar}" ajax="false" />
+			<p:menuitem value="Cursos" action="#{relatorioCursosControlador.entrar}" ajax="false" />
+			<p:menuitem value="Turmas" action="#{relatorioTurmasControlador.entrar}" ajax="false" />
+			<p:menuitem value="Matrículas" action="#" ajax="false" />
+			<p:menuitem value="Matrizes Curriculares" action="#{relatorioMatrizesCurricularesControlador.entrar}" ajax="false" />
+			<p:menuitem value="Pagamentos" action="#" ajax="false" />
+			<p:menuitem value="Frequências" action="#{relatorioFrequenciasControlador.entrar}" ajax="false" />
+			<p:menuitem value="Notas" action="#{relatorioNotasControlador.entrar}" ajax="false" />
+		</p:submenu>
+		
+		<p:submenu label="Contatos">
+			<p:menuitem value="Contato Cursos" action="#{contatoControlador.entrar}" ajax="false" />
+		</p:submenu>
+
+		<f:facet name="options">
+			<ui:include src="/paginas/usuarioLogado.xhtml" />
+		</f:facet>
+	</p:menubar>
+</ui:fragment>

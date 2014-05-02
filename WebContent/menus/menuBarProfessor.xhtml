@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<p:menubar rendered="#{loginControlador.logado}">
+		<p:submenu label="Cadastros">
+			<p:menuitem value="Frequência" action="#{frequenciaCadastroControlador.entrar}" ajax="false"/>
+			<p:menuitem value="Nota" action="#{notaCadastroControlador.entrar()}" ajax="false"/>	
+			<p:menuitem value="Plano de Aula" action="#{planoAulaCadastroControlador.entrar}" ajax="false" />
+		</p:submenu>
+		<p:submenu label="Turmas">
+			<p:menuitem value="Minhas Turmas" action="#{minhasTurmasControlador.entrar}" ajax="false" >
+				<f:setPropertyActionListener target="#{minhasTurmasControlador.professor}" value="#{loginControlador.usuarioSessao}" />
+			</p:menuitem>
+			<p:menuitem value="Meus Certificados" action="#{certificadosProfessorControlador.entrar}" ajax="false" >
+				<f:setPropertyActionListener target="#{certificadosProfessorControlador.professor}" value="#{loginControlador.usuarioSessao}" />
+			</p:menuitem>
+			<p:menuitem value="Turmas Abertas" action="#" ajax="false" />
+			<p:menuitem value="Turmas Fechadas" action="#" ajax="false" />
+		</p:submenu>
+		
+		<f:facet name="options">
+			<ui:include src="/paginas/usuarioLogado.xhtml"></ui:include>
+		</f:facet>
+	</p:menubar>
+</ui:fragment>

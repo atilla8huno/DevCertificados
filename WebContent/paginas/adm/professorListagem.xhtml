@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://java.sun.com/jsf/html" 
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets" 
+		xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="mbean" value="#{professorListagemControlador}" />
+	<ui:param name="tituloListagem" value="Listagem de Professores" />
+	<ui:param name="novo" value="novo"></ui:param>
+
+	<ui:define name="formulario">
+		<p:dataTable value="#{professorListagemControlador.lista}" var="d" rows="10" paginator="true" paginatorPosition="bottom" style="width: 100%">
+			<p:column headerText="CPF" filterBy="#{d.cpf}" styleClass="colunaTabela" filterStyle="width: 40%;">
+				<h:outputText value="#{d.cpf}" />
+			</p:column>
+			
+			<p:column headerText="Nome" filterBy="#{d.nome}" styleClass="colunaTabela" filterStyle="width: 40%;">
+				<h:outputText value="#{d.nome}" />
+			</p:column>
+			
+			<p:column headerText="E-mail" filterBy="#{d.email}" styleClass="colunaTabela" filterStyle="width: 40%;">
+				<h:outputText value="#{d.email}" />
+			</p:column>
+			
+			<p:column style="width: 20%;">
+				<p:commandButton icon="ui-icon-pencil" action="/paginas/adm/professorCadastro.jsf?faces-redirect=true" ajax="false">
+					<f:setPropertyActionListener target="#{professorCadastroControlador.entidade}" value="#{d}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-trash" action="#{professorListagemControlador.excluir}" update="@form" ajax="false">
+					<f:setPropertyActionListener target="#{professorListagemControlador.entidade}" value="#{d}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

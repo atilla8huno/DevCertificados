@@ -1,0 +1,602 @@
+@CHARSET "ISO-8859-1";
+
+* {
+	padding: 0;
+	margin: 0;
+	
+}
+
+.ui-widget {
+	font-family: Arial, sans-serif;
+	font-size: 0.9em;
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+	width: 14.5em !important; 
+}
+
+html,body {
+	min-width: 600px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #333;
+	font-size: 13px;
+	font-weight: normal;
+	background-image: url('../images/contact-map.png'),
+		url('../images/bg.gif');
+	background-position: 0 0, 0 0;
+	background-repeat: repeat-x, repeat;
+}
+
+td,tr,p {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #333;
+	font-size: 13px;
+	font-weight: normal;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.topoMenuCor {
+	position: relative;
+	top: 0px;
+	width: 100%;
+	height: 5px;
+	background-repeat: repeat-x;
+	background-color: red;
+}
+
+fieldset {
+	border: 1px solid #bfbfbf;
+	height: auto;
+	padding: 5px;
+	margin-bottom: 5px;
+	margin-top: 0;
+}
+
+fieldset.nivel-1 {
+	margin: 0 5px 10px 5px;
+}
+
+fieldset.nivel-1 legend {
+	color: #5f5f5f;
+	margin-left: 5px;
+	letter-spacing: 1px;
+}
+
+fieldset.nivel-2 {
+	margin: 0 5px 10px 5px;
+}
+
+fieldset.nivel-2 legend {
+	color: #5f5f5f;
+	margin-left: 5px;
+	letter-spacing: 1px;
+}
+
+fieldset.nivel-0-modal {
+	height: 330px;
+}
+
+fieldset.nivel-0-modal-controle {
+	height: 280px;
+}
+
+fieldset.controle {
+	margin-top: 5px;
+	padding: 0;
+	padding-bottom: 5px;
+}
+
+fieldset.controle legend {
+	padding: 0 5px;
+	margin: 0;
+	margin-left: 5px;
+}
+
+fieldset.controle div {
+	width: 100%;
+	text-align: center;
+}
+
+fieldset.controle input {
+	margin: 0 2px;
+}
+
+fieldset.controle-alinhado {
+	margin-top: 5px;
+	padding: 0;
+	padding: 10px 0;
+}
+
+fieldset.controle-alinhado legend {
+	padding: 0 5px;
+	margin: 0;
+	margin-left: 5px;
+}
+
+fieldset.controle-alinhado div {
+	width: 100%;
+	text-align: center;
+}
+
+fieldset.controle-alinhado input {
+	margin: 0 2px;
+}
+
+legend {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+fieldset {
+	border: 1px solid #d8dcdf !important;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #fff;
+	margin-bottom: 10px;
+	font-size: 13px;
+}
+
+legend {
+	margin: 5px;
+	padding: 0 5px;
+	color: #148; /*233*/
+	font-weight: 700;
+	font-size: 11px;
+	letter-spacing: 1px;
+	font-family: Arial, Verdana, sans-serif;
+	text-transform: capitalize;
+}
+
+#painelTemplate {
+	margin-top: 40px !important;
+	border: 0px !important;
+	text-align: center;
+	font-size: 15px;
+}
+
+#msgGeral {
+	text-align: left;
+}
+
+.conter {
+	color: gray;
+}
+
+#tudo {
+	width: 100%;
+	min-height: 500px;
+	max-height: 500px;
+	-moz-border-radius: 2px; /* Para Firefox */
+	-webkit-border-radius: 2px; /*Para Safari e Chrome */
+	border-radius: 2px; /* Para Opera 10.5+*/
+}
+
+.mostraImagem {
+	margin-left: -9px !important;
+	-moz-border-radius: 5px !important; /* Para Firefox */
+	-webkit-border-radius: 5px !important; /*Para Safari e Chrome */
+	border-radius: 5px !important; /* Para Opera 10.5+*/
+}
+
+.tituloCurso {
+	font-size: 30px !important;
+	margin-left: 10%;
+	margin-right: 10%;
+	width: 80%
+}
+
+.descricaoCurso {
+	font-size: 15px;
+	text-align: justify;
+	max-width: 800px;
+	width: 800px;
+}
+
+.gridIndex {
+	width: 70%;
+	position: relative;
+	margin-top: 10px;
+}
+
+.dialogDetalhesCurso {
+	overflow: hidden;
+	position: absolute;
+}
+
+.labelTitulo {
+	margin-top: 100px !important;
+	margin-bottom: 100px !important;
+	font: bold !important;
+	font-size: 20px !important;
+}
+
+.tooltip {
+	position: absolute;
+}
+
+.cargaHoraria {
+	font-size: 18px;
+	color: green;
+}
+
+.labelNivel {
+	margin-top: 20px;
+	font-size: 18px;
+}
+
+.disciplinas {
+	text-align: justify;
+	margin-left: 30px;
+	margin-right: 10px;
+}
+
+.labelValor {
+	color: red;
+	font-size: 20px;
+}
+
+.imagemlink {
+	-moz-border-radius: 5px !important; /* Para Firefox */
+	-webkit-border-radius: 5px !important; /*Para Safari e Chrome */
+	border-radius: 5px !important; /* Para Opera 10.5+*/
+}
+
+.indexLink {
+	color: black;
+	text-align: center !important;
+	text-decoration: none !important;
+}
+
+.linkLabel {
+	clear: left;
+	position: relative;
+	text-align: center;
+	text-shadow: 0px 2px 3px #667;
+}
+
+#menuCentral {
+	clear: inherit !important;
+	z-index: 999 !important;
+	position: relative !important;
+}
+
+#menuDireito {
+	float: right;
+	margin-right: 0px !important;
+	position: relative;
+	clear: left;
+	z-index: -999 !important;
+	top: 0;
+	width: 15%;
+}
+
+#topoMenu {
+	z-index: 999;
+	left: 0%;
+	right: 0%;
+	top: 0;
+	display: block !important;
+	position: fixed;
+}
+
+#menuBar {
+	width: 80%;
+	min-width: 500px;
+	background-color: white;
+	-moz-border-radius: 3px; /* Para Firefox */
+	-webkit-border-radius: 3px; /*Para Safari e Chrome */
+	border-radius: 3px; /* Para Opera 10.5+*/
+	position: relative;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+#menuSuperior {
+	width: 100%;
+	height: 50px;
+	float: left;
+	position: relative;
+	background: url("../images/menu-bg.png") repeat-x;
+	/* -moz-border-radius : 2px; Para Firefox
+	-webkit-border-radius: 2px; Para Safari e Chrome
+	border-radius: 2px;
+	-moz-border-radius: 2px; Para Firefox
+	-webkit-border-radius: 2px; Para Safari e Chrome
+	border-radius: 2px; Para Opera 10.5+
+	
+	-moz-border-radius: 2px; */
+	z-index: 1;
+}
+
+.panelControle {
+	border: 0px !important;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+	margin: 0px !important;
+	padding-left: 0px !important;
+}
+
+#fieldSet {
+	margin-left: -14px;
+	margin-right: -14px;
+}
+
+.sombra {
+	box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5); /* Para Opera 10.5+*/
+	-moz-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5); /* Para Firefox */
+	-webkit-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+	/*Para Safari e Chrome */
+}
+
+.conteudo {
+	padding-top: 60px;
+	padding-bottom: 60px;
+	width: 80%;
+	min-width: 500px;
+	min-height: 400px;
+	position: absolute;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 45px;
+	background-color: #ffffff !important;
+	/* Efeito da Sombra*/
+	box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.8) !important;
+	/* Para Opera 10.5+*/
+	-moz-box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.8) !important;
+	/* Para Firefox */
+	-webkit-box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.8) !important;
+	-moz-border-radius: 5px !important;
+	/*Para Safari e Chrome */
+	*zoom: 1
+}
+
+#menu {
+	width: 19.9%;
+	height: 100%;
+	float: left;
+	background-color: white;
+	overflow: hidden;
+	border: 0pxr;
+	-moz-border-radius: 2px; /* Para Firefox */
+	-webkit-border-radius: 2px; /*Para Safari e Chrome */
+	border-radius: 2px; /* Para Opera 10.5+*/
+	float: left;
+}
+
+#principal {
+	width: 80%;
+	height: 100%;
+	margin-left: 0.1%;
+	float: right;
+	overflow: auto;
+	background-color: white;
+	-moz-border-radius: 2px; /* Para Firefox */
+	-webkit-border-radius: 2px; /*Para Safari e Chrome */
+	border-radius: 2px; /* Para Opera 10.5+*/
+}
+
+.divTituloPagina {
+	padding-top: 15px;
+	border-bottom: 1px solid #696969;
+}
+
+.caixaAcao {
+	margin-top: 15px;
+	padding-top: 5px;
+	border-top: 1px solid #696969;
+}
+
+.ui-bt-aluno {
+	display: block !important;
+	overflow: hidden;
+	background-image: url("images/macosx/aluno-icon.png") no-repeat
+		!important;
+}
+
+.ui-bt-novo {
+	width: 16px;
+	height: 16px;
+	background-image: url("images/add-icon.png");
+}
+
+#conteudoListagem {
+	margin-top: 15px;
+}
+
+#conteudoCadastro {
+	margin-top: 15px;
+}
+
+.tituloPagina {
+	width: 15px;
+	color: #696969;
+	font-weight: bolder;
+	font-family: Andale Mono, monospace;
+}
+
+.filtroTabela {
+	width: 90px;
+}
+
+/* Template Login  */
+#loginTopo {
+	width: 100%;
+	height: 100px;
+	margin: auto;
+	align: top;
+	background-color: #9C9C9C;
+	border: 0px;
+}
+
+#loginCentro {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	align: center;
+	border: 0px;
+	text-align: left;
+}
+
+#loginRodape {
+	width: 100%;
+	height: 100px;
+	margin: auto;
+	vertical-align: bottom;
+	background-color: #9C9C9C;
+	border: 0px;
+}
+
+.loginDialog {
+	width: 300px !important;
+	height: 310px !important;
+	background-color: transparent !important;
+	border: 0px !important;
+	align: center !important;
+	float: none !important;
+	margin: 0px !important;
+	border-color: transparent !important;
+	/* Efeito contas arredondados*/
+	-moz-border-radius: 5px !important;
+	background: url("../images/aco_escovado.jpg");
+	/* Para Firefox */
+	-webkit-border-radius: 5px !important; /*Para Safari e Chrome */
+	border-radius: 8px !important;
+	/* Efeito da Sombra*/
+	box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.8) !important;
+	/* Para Opera 10.5+*/
+	-moz-box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.8) !important;
+	/* Para Firefox */
+	-webkit-box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.8) !important;
+	-moz-border-radius: 5px !important;
+	/*Para Safari e Chrome */
+	-->
+}
+
+.logoLogin {
+	padding: 1px;
+	margin-bottom: -10px !important;
+	margin-left: -4px !important;
+	max-width: 294px !important;
+	overflow: hidden;
+	width: 100% !important;
+	height: 138px !important;
+	border: -1px !important;
+	background: transparent !important;
+	position: relative !important;
+	float: left !important;
+	background-image: url("../images/logo_principal.png") !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+}
+
+.loginBotao {
+	-moz-border-radius: 100%; /* Para Firefox */
+	-webkit-border-radius: 100%; /*Para Safari e Chrome */
+	border-radius: 100%;
+	width: 30px;
+	height: 30px;
+	margin-bottom: -60px !important;
+	margin-top: 10px !important;
+	margin-right: 10px !important;
+	border: 0px !important;
+	background: transparent !important;
+	background-image: url("../images/next.png") !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	float: right;
+	padding: 5px !important;
+}
+
+.inputLogin { /* Efeito contas arredondados*/
+	-moz-border-radius: 5px; /* Para Firefox */
+	-webkit-border-radius: 5px; /*Para Safari e Chrome */
+	border-radius: 8px;
+	height: 40px;
+	width: 270px;
+	margin: 1px;
+	margin-left: -7px !important;
+	font-family: Arial, Helvetica, sans-serif !important;
+	float: none !important;
+	font-size: medium !important;
+	font-size-adjust: none !important;
+}
+
+.cadastreSe {
+	color: #363636 !important;
+	margin-left: 160px;
+	text-shadow: 1px 0px 0px #eee, 0px 0px 0px #707070;
+	text-decoration: none;
+}
+
+a.cadastreSe:hover {
+	color: #ffffff !important;
+	text-shadow: 5px 5px 8px #fff;
+}
+
+#copyright {
+	width: 100%;
+	height: 10px;
+	float: left;
+}
+
+.texto_rodape a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: red;
+	text-decoration: none;
+}
+
+#rodape {
+	width: 100%;
+	height: 30px;
+	float: left;
+	background-color: white;
+	border: 2px silver;
+	margin-top: 0.5em;
+	-moz-border-radius: 3px; /* Para Firefox */
+	-webkit-border-radius: 3px; /*Para Safari e Chrome */
+	border-radius: 3px;
+	margin-top: 0.5em; /* Para Opera 10.5+*/
+}
+
+.ui-dock-container-top,.ui-widget-header {
+	border: 0;
+}
+
+.ui-growl-title {
+	font-size: 1.4em !important;
+}
+
+.ui-messages-error-summary {
+	font-size: 1.0em !important;
+}
+
+.ui-panel-titlebar {
+	background-color: #f5f5f5 !important;
+	border-bottom: 1px solid #dddddd !important;
+	border-top-right-radius: 3px !important;
+	border-top-left-radius: 3px !important;
+}
+
+.footer {
+	float:left;
+	text-align: center;
+	border-top: 2px solid #e5e5e5;
+	background-color: #f5f5f5;
+	height: 100%;
+	min-height:20%	;
+	width: 100%;
+	margin-bottom: auto;
+	position: fixed;
+}
+
+footer p {
+	color: black;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="tituloCadastro" value="Cadastro de Aula" />
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Dados Aula </legend>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Curso: " />
+				<h:outputLabel value="#{aulaCadastroControlador.turma.matrizCurricular.curso.titulo}" />
+				<h:outputLabel value="Turma: " />
+				<h:outputLabel value="#{aulaCadastroControlador.turma.nome}" />
+				<h:outputLabel value="Professor: " />
+				<h:outputLabel value="#{aulaCadastroControlador.turma.pessoa.nome}" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<p:column>
+					<p:outputLabel value="Data" for="data" />
+				</p:column>
+				<p:column>
+					<p:calendar value="#{aulaCadastroControlador.entidade.dataAula}" id="data" required="true">
+						<p:watermark value="Data" for="data" />
+					</p:calendar>
+				</p:column>
+			</h:panelGrid>
+		</fieldset>
+		<fieldset>
+			<legend>listagem de aulas</legend>
+
+			<p:dataTable id="dataTable" value="#{aulaCadastroControlador.listaAulas}" var="a" paginator="true" rows="10">
+
+				<p:column headerText="Data">
+					<h:outputLabel value="#{a.dataAula}">
+						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+					</h:outputLabel>
+				</p:column>
+
+				<p:column>
+					<p:commandButton update="dataTable" icon="ui-icon-trash" action="#{aulaCadastroControlador.excluir}">
+						<f:setPropertyActionListener target="#{aulaCadastroControlador.aulaSelecionada}" value="#{a}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+		</fieldset>
+	</ui:define>
+	<ui:define name="botoesAuxiliares">
+		<p:commandButton value="Salvar" action="#{aulaCadastroControlador.salvar}" update="dataTable" />
+		<p:commandButton value="Limpar" action="#{aulaCadastroControlador.limpar}" update="@form" />
+	</ui:define>
+</ui:composition>
+</html>

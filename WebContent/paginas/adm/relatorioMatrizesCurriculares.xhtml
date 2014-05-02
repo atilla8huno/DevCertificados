@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateRelatorio.xhtml">
+	<ui:param name="mbean" value="#{relatorioMatrizesCurricularesControlador}" />
+
+	<ui:param name="emitirRelatorio" value="emitirRelatorio" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+
+	<ui:param name="titulo" value="Relatório de Matrizes Curriculares" />
+
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Filtros para pesquisa</legend>
+			<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+				
+				<p:column>
+					<p:outputLabel for="selectCurso" value="Curso:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="selectCurso" converter="#{cursoConversor}" effect="fold" value="#{relatorioMatrizesCurricularesControlador.curso}">
+						<f:selectItem itemLabel="Selecione um Curso" itemValue="" />
+						<f:selectItems value="#{relatorioMatrizesCurricularesControlador.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.titulo}" />
+					</p:selectOneMenu>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="selectNivel" value="Nível:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="selectNivel" converter="#{nivelConversor}" effect="fold" value="#{relatorioMatrizesCurricularesControlador.nivel}">
+						<f:selectItem itemLabel="Selecione um Nível" itemValue="" />
+						<f:selectItems value="#{relatorioMatrizesCurricularesControlador.niveis}" var="nivel" itemValue="#{nivel}" itemLabel="#{nivel.descricao}" />
+					</p:selectOneMenu>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="selectTurno" value="Turno:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="selectTurno" converter="#{turnoConversor}" effect="fold" value="#{relatorioMatrizesCurricularesControlador.turno}">
+						<f:selectItem itemLabel="Selecione um Turno" itemValue="" />
+						<f:selectItems value="#{relatorioMatrizesCurricularesControlador.turnos}" var="turno" itemValue="#{turno}" itemLabel="#{turno.descricao}" />
+					</p:selectOneMenu>
+				</p:column>
+			</h:panelGrid>
+		</fieldset>
+	</ui:define>
+</ui:composition>
+</html>

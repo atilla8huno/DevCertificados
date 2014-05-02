@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="tituloCadastro" value="Configurações Gerais" />
+	<ui:param name="mbean" value="#{configuracaoControlador}" />
+	<ui:param name="cancelar" value="cancelar" />
+	<ui:param name="salvar" value="salvar" />
+	<ui:param name="limpar" value="limpar" />
+	
+	<ui:define name="formulario">
+		<h:panelGrid>
+			<p:fieldset toggleable="true" legend="Newsletter" toggleSpeed="500">
+				<h:panelGrid columns="3">
+					<h:outputText value="Receber promoções, calendários e outras notificações pro e-mail?" /><p:spacer width="5" height="5"/>
+					<p:selectBooleanCheckbox id="checkNews" value="#{configuracaoControlador.usuario.newsletter}" /><br/>
+					<p:tooltip for="checkNews" value="Ativar/Desativar" showEffect="fade" hideEffect="fade" />
+				</h:panelGrid>
+			</p:fieldset><br/>
+			
+			<p:fieldset toggleable="true" legend="Desativar Conta" toggleSpeed="500">
+				<h:panelGrid>
+					<h:outputText value="Para desativar sua conta, é necessário uma confirmação!" /><br/>
+					
+					<p:separator /><br/>
+					
+					<p:password value="#{configuracaoControlador.senha}" id="senhaAtual" />
+					<p:watermark for="senhaAtual" value="Informe sua Senha" />
+					
+					<p:password value="#{configuracaoControlador.senhaConfirmacao}" id="senhaConfirmacao"/>
+					<p:watermark for="senhaConfirmacao" value="Confirmar Senha" /><br/>
+					
+					<p:separator /><br/>
+					
+					<p:commandButton value="Desativar Conta" icon="ui-icon-locked" action="#{configuracaoControlador.desativarConta}" ajax="false"/>
+				</h:panelGrid>
+			</p:fieldset>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
+</html>

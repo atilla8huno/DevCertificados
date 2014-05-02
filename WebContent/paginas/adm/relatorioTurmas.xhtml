@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateRelatorio.xhtml">
+	<ui:param name="mbean" value="#{relatorioTurmasControlador}" />
+
+	<ui:param name="emitirRelatorio" value="emitirRelatorio" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+
+	<ui:param name="titulo" value="Relatório de Turmas" />
+
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Filtros para pesquisa</legend>
+			<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+
+				<p:column>
+					<p:outputLabel for="dataRealInicio" value="Data Início" />
+				</p:column>
+				<p:column>
+					<p:calendar value="#{relatorioTurmasControlador.dataRealInicio}" id="dataRealInicio" />
+					<p:watermark for="dataRealInicio" value="Data Início" /><br />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="dataRealFim" value="Data Fim" />
+				</p:column>
+				<p:column>
+					<p:calendar value="#{relatorioTurmasControlador.dataRealFim}" id="dataRealFim" />
+					<p:watermark for="dataRealFim" value="Data Fim" />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="completeProfessor" value="Professor" />
+				</p:column>
+				<p:column>
+					<p:autoComplete var="p" value="#{relatorioTurmasControlador.professor}" forceSelection="true" converter="#{pessoaConversor}"
+						completeMethod="#{relatorioTurmasControlador.completeProfessores}" itemValue="#{p}" itemLabel="#{p.nome}" id="completeProfessor" />
+					<p:watermark for="completeProfessor" value="Professor" />
+					<p:commandButton value=" ... " onclick="dialogProfessor.show()" type="button" />
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel for="selectStatus" value="Status" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="selectStatus" converter="#{statusTurmaConversor}" effect="fold" value="#{relatorioTurmasControlador.status}">
+						<f:selectItem itemLabel="Status" itemValue="" />
+						<f:selectItems value="#{relatorioTurmasControlador.listaStatus}" var="s" itemValue="#{s}" itemLabel="#{s.descricao}" />
+					</p:selectOneMenu>
+				</p:column>
+				
+			</h:panelGrid>
+		</fieldset>
+		
+		<p:dialog id="pesquisaProfessor" header="Selecione um Professor..." widgetVar="dialogProfessor" modal="true" height="400">
+			<p:dataTable value="#{relatorioTurmasControlador.listaDeProfessores}" var="p" rows="10" paginator="true" paginatorPosition="bottom" style="width: 80%">
+			
+				<p:column headerText="Nome" filterBy="#{p.nome}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{p.nome}" />
+				</p:column>
+
+				<p:column headerText="Formação Acadêmica" filterBy="#{p.formacao}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{p.formacao}" />
+				</p:column>
+
+				<p:column headerText="E-mail" filterBy="#{p.email}" styleClass="colunaTabela" filterStyle="width: 40%;">
+					<h:outputText value="#{p.email}" />
+				</p:column>
+
+				<p:column style="width: 20%;">
+					<p:commandButton icon="ui-icon-pencil" onclick="dialogProfessor.hide()" update=":formGeral:completeProfessor" process="@this">
+						<f:setPropertyActionListener target="#{relatorioTurmasControlador.professor}" value="#{p}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

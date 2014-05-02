@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+	
+	<p:tooltip for="home" value="Home!" showEffect="fade" hideEffect="fade" styleClass="tooltip" />
+	<p:tooltip for="aluno" value="Aluno!" showEffect="fade" hideEffect="fade" styleClass="tooltip" />
+	<p:tooltip for="professor" value="Professor!" showEffect="fade" hideEffect="fade" styleClass="tooltip" />
+	<p:tooltip for="adm" value="Administrador!" showEffect="fade" hideEffect="fade" styleClass="tooltip" />
+	
+	<p:dock position="top" proximity="5" maxWidth="10" rendered="#{loginControlador.logado}">
+		
+		<p:menuitem id="home" label="Finder" icon="/images/macosx/home-icon.png" action="#{menuBarControlador.controleHomepage}" ajax="false"
+			rendered="#{loginControlador.usuarioSessao != null}" />
+		<p:menuitem id="aluno" label="Finder" icon="/images/macosx/aluno-icon.png" title="Aluno" action="#{menuBarControlador.ativaMenuAluno}"
+			ajax="false" rendered="#{loginControlador.usuarioSessao.tipoAluno}" />
+		<p:menuitem id="professor" label="Terminal" icon="/images/macosx/professor-icon.png" title="Professor"
+			action="#{menuBarControlador.ativaMenuProfessor}" ajax="false" rendered="#{loginControlador.usuarioSessao.tipoProfessor}" />
+		<p:menuitem id="adm" label="Safari" icon="/images/macosx/administrador-icon.png" title="Administrador" action="#{menuBarControlador.ativaMenuAdm}"
+			ajax="false" rendered="#{loginControlador.usuarioSessao.tipoAdm}" />
+	</p:dock>
+</ui:fragment>

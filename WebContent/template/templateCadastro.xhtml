@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="conteudo">
+
+		<p:panel id="painelTemplate" header="#{tituloCadastro}">
+			<p:focus for="painelTemplate" />
+			<p:messages rendered="#{ativarMsg == null ? true : ativarMsg}" autoUpdate="true" id="msgGeral" closable="true" showSummary="false" />
+			<div id="conteudoCadastro" align="center">
+				<h:form id="formGeral" acceptcharset="ISO-8859-1">
+					<ui:insert name="formulario" />
+					<fieldset>
+						<legend>Controle</legend>
+						<p:commandButton action="#{mbean[salvar]}" value="Salvar" icon="ui-icon-disk" update="@form" process="@form" rendered="#{salvar != null}" />
+						<p:commandButton action="#{mbean[limpar]}" value="Limpar" icon="ui-icon-trash" immediate="true" update="@form" process="@this"
+							rendered="#{limpar != null}" />
+						<p:commandButton action="#{mbean[cancelar]}" value="Cancelar" icon="ui-icon-arrowreturnthick-1-w" ajax="false" rendered="#{cancelar != null}"
+							immediate="true" />
+						<ui:insert name="botoesAuxiliares" />
+					</fieldset>
+				</h:form>
+			</div>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
+</html>

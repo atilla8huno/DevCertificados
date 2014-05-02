@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="pragma" content="no-cache" />
+
+	<link type="text/css" rel="stylesheet"
+		href="${facesContext.externalContext.requestContextPath}/css/layout.css" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{request.contextPath}/images/devschool.ico" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<script
+		src="${facesContext.externalContext.requestContextPath}/js/popup.js"
+		type="text/javascript" />
+	<title>DevSchool Tecnologia</title>
+</h:head>
+<h:body>
+<h:form id="formPrincipal">
+	<f:loadBundle var="msg" basename="messages" />
+	<!--MENU TOPO-->
+	<div id="tudo">
+		<ui:insert name="login" />
+		<h:form acceptcharset="ISO-8859-1">
+			<div id="topoMenu">
+				<div class="topoMenuCor" />
+				<div id="menuSuperior" class="sombra">
+					<!--DIV QUE ARMAZENA O MENU CENTRAL -->
+					<div id="menuCentral">
+						<ui:include src="/menus/menuDock.xhtml" />
+					</div>
+					<div id="menuDireito"></div>
+				</div>
+				<div id="menuBar" class="sombra">
+					<ui:include src="#{menuBarControlador.menuAtivo}" />
+				</div>
+			</div>
+		</h:form>
+		<div class="conteudo" align="center">
+			<p:growl id="growlTemplate" autoUpdate="true" showDetail="true" showSummary="true" globalOnly="true"/>
+			<ui:insert name="conteudo" />
+		</div>
+
+	</div>
+</h:form>
+</h:body>
+</html>
+
+

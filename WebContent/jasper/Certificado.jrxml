@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Certificado" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ee79997a-00a2-47c0-9c2e-ff766b079304">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="226"/>
+	<parameter name="id_aluno_turma" class="java.lang.Integer"/>
+	<parameter name="id_turma" class="java.lang.Integer"/>
+	<parameter name="CONTEXT_ROOT" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT atu.id_aluno_turma AS "codigo", p.nome AS "nome_aluno", c.titulo AS "titulo",
+       prof.nome AS "nome_professor", t.data_real_inicio AS "data_inicio",
+       prof.assinatura_digital, prof.atividade_profissional, prof.formacao,
+       t.data_real_fim AS "data_fim", atu.porcentagem_frequencia, atu.porcentagem_aproveitamento
+  FROM aluno_turma atu
+ INNER JOIN turma t ON (atu.id_turma = t.id_turma)
+ INNER JOIN pessoa p ON (atu.id_pessoa = p.id_pessoa)
+ INNER JOIN pessoa prof ON (t.id_pessoa = prof.id_pessoa)
+ INNER JOIN matriz_curricular mc ON (t.id_matriz_curricular = mc.id_matriz_curricular)
+ INNER JOIN curso c ON (c.id_curso = mc.id_curso)
+ WHERE t.id_turma = $P{id_turma}]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="nome_professor" class="java.lang.String"/>
+	<field name="data_inicio" class="java.sql.Date"/>
+	<field name="assinatura_digital" class="java.lang.Object"/>
+	<field name="atividade_profissional" class="java.lang.String"/>
+	<field name="formacao" class="java.lang.String"/>
+	<field name="data_fim" class="java.sql.Date"/>
+	<field name="porcentagem_frequencia" class="java.lang.Integer"/>
+	<field name="porcentagem_aproveitamento" class="java.lang.Integer"/>
+	<field name="total_carga_horaria" class="java.lang.Integer"/>
+	<background>
+		<band height="555">
+			<image>
+				<reportElement uuid="884b4d2c-fa40-40b4-a40c-1e64257e6cdb" x="0" y="0" width="802" height="555"/>
+				<imageExpression><![CDATA[$P{CONTEXT_ROOT} + "images/DevSchoolModelo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<columnHeader>
+		<band height="164" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="330" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a4448068-06a1-4dc4-8454-f70cdbbf5d27" x="74" y="1" width="306" height="22"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="18" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[A DevSchool Tecnologia certifica que]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="70c6a626-dcaa-4568-a6ba-e3161fb46bcb" x="314" y="63" width="90" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<text><![CDATA[Carga horária:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e91409f0-e4ce-4629-afbd-0b32af4b7547" x="445" y="63" width="41" height="20"/>
+				<textElement>
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<text><![CDATA[horas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3cf43f19-0e05-4fb5-b936-527d602d38ff" x="135" y="117" width="228" height="35"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18"/>
+				</textElement>
+				<text><![CDATA[Instrutor ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7b3fd9cd-a066-4a25-b572-082954fc2715" x="429" y="117" width="228" height="35"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18"/>
+				</textElement>
+				<text><![CDATA[Professor Responsável]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="f81468f7-8b31-4370-81c4-ac38f47ede96" x="429" y="179" width="228" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="cb1a9912-ec6b-46c2-9d4e-d22f643291c0" x="135" y="179" width="226" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="bbab0639-f066-4bbe-926a-6f0fe33647cc" x="419" y="180" width="248" height="25"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18"/>
+				</textElement>
+				<text><![CDATA[LEONARDO ANTONIO ALVES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="33d79b6e-b4fb-46d2-96b4-159d1e3f505e" x="429" y="204" width="228" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<text><![CDATA[Mestre UFG - Eng. Elétrica e da Computação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e6daa715-66ae-48b4-9ec3-06c21c3a073d" x="401" y="217" width="284" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<text><![CDATA[Diretor Comitê de Democratização da Informática de Goiás]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="0e80472c-ad11-4d4f-a33e-da96f56c7711" x="501" y="136" width="99" height="53"/>
+				<imageExpression><![CDATA[$P{CONTEXT_ROOT} + "images/assLeonardoAlves.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="378b2800-1743-4c54-91a5-5234581f9242" x="406" y="63" width="38" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""+$F{total_carga_horaria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9f310200-f5bc-455d-9b1a-9ff8986f31b5" x="530" y="26" width="83" height="22"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f30bd7b7-4415-4d7c-b37f-7561cf6c1bd9" x="630" y="26" width="83" height="22"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_fim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cfba4f47-fd3d-49c9-950a-df1d03c11002" x="613" y="26" width="17" height="22"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18"/>
+				</textElement>
+				<text><![CDATA[à]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9f231a04-ca5d-421e-9d72-133232d6b51e" x="135" y="179" width="226" height="25"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_professor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dea27e83-94eb-4e5d-88b1-658c636a915c" x="135" y="204" width="226" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9a678642-ac65-4b83-840b-75cd716c3f8d" x="135" y="217" width="226" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{atividade_profissional}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1b6bbc2d-e32e-4051-85cf-fcd2aed81129" x="713" y="26" width="12" height="22"/>
+				<textElement>
+					<font fontName="Calibri" size="18"/>
+				</textElement>
+				<text><![CDATA[.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="10ba102f-91fe-4fff-913f-20d2727835a7" x="502" y="26" width="28" height="23"/>
+				<textElement>
+					<font fontName="Calibri" size="18"/>
+				</textElement>
+				<text><![CDATA[em ]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="b8054390-75b9-4271-a9dd-1ad71d8b35c1" x="207" y="48" width="290" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="0fb7c432-71dd-41f8-82cd-c631e7813bd3" x="383" y="23" width="337" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="e54d4a6d-808d-452b-b9ab-defc178ac0f2" x="383" y="1" width="337" height="22"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="48decf15-6c4d-40eb-b81a-6e19898dacd3" x="203" y="26" width="298" height="22"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1c9945df-a777-4d78-86f0-abaee5b90771" x="66" y="26" width="137" height="23"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="18" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[concluiu o curso ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91316470-41ec-460c-9352-cf365ea5cda5" x="268" y="84" width="199" height="19"/>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<text><![CDATA[Código de verificação on-line:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="51c894a8-338e-4084-b44e-71c53ae37c2e" x="470" y="84" width="68" height="19"/>
+				<textElement>
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="17f1502d-eb77-4586-9be9-05f782b3294f" x="168" y="139" width="163" height="50"/>
+				<imageExpression><![CDATA[new ByteArrayInputStream((byte[])$F{assinatura_digital})]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateCadastro.xhtml">
+	<ui:param name="tituloCadastro" value="Matrícula" />
+	<ui:param name="mbean" value="#{matriculaCadastroControlador}"></ui:param>
+	<ui:param name="salvar" value="salvar"/>
+	<ui:param name="cancelar" value="cancelar"/>
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Dados da Matrícula</legend>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Curso: " />
+				<h:outputLabel value="#{matriculaCadastroControlador.entidade.turma.matrizCurricular.curso.titulo}" />
+				<h:outputLabel value="Nivel: " />
+				<h:outputLabel value="#{matriculaCadastroControlador.entidade.turma.matrizCurricular.nivel.descricao}" />
+				<h:outputLabel value="Carga Horária: " />
+				<h:outputLabel value="#{matriculaCadastroControlador.totalCargaHoraria()}" />
+				<h:outputLabel value="Turma: " />
+				<h:outputLabel value="#{matriculaCadastroControlador.entidade.turma.nome}" />
+				<h:outputLabel value="Turno: " />
+				<h:outputLabel value="#{matriculaCadastroControlador.entidade.turma.matrizCurricular.turno.descricao}" />
+				<h:outputLabel value="Data Inicio: " />
+				<h:outputLabel value="#{matriculaCadastroControlador.entidade.turma.dataRealInicio}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR"/>
+				</h:outputLabel>
+			</h:panelGrid>
+		</fieldset>
+		<fieldset>
+			<legend>Dados do Pagamento</legend>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Forma de Pagamento: " />
+				<p:selectOneMenu converter="#{formaPagamentoConversor}"
+								 value="#{matriculaCadastroControlador.formaDePagamento}">
+					<f:selectItems value="#{matriculaCadastroControlador.formasDePagamentos}"
+								   var="formaPagamento"
+								   itemValue="#{formaPagamento}"
+								   itemLabel="#{formaPagamento.descricao}"/>
+					<p:ajax update="@form"/>
+				</p:selectOneMenu>
+				<h:outputLabel id="labelParcelas" value="Parcelas: " rendered="#{matriculaCadastroControlador.formaDePagamento.qtdeParcelas > 0}"/>
+				<p:selectOneMenu id="parcelas" 
+								 value="#{matriculaCadastroControlador.qtdePagamento}" 
+								 rendered="#{matriculaCadastroControlador.formaDePagamento.qtdeParcelas > 0}">
+					<f:selectItems value="#{matriculaCadastroControlador.parcelas}" var="qtde" itemLabel="#{qtde}" itemValue="#{qtde}"/>
+				</p:selectOneMenu>
+				<h:outputLabel id="labelDataVencimento" value="Data Vencimento (1º Parcela): " rendered="#{matriculaCadastroControlador.formaDePagamento.qtdeParcelas > 0}"/>
+				<p:calendar id="dataVencimento" 
+							rendered="#{matriculaCadastroControlador.formaDePagamento.qtdeParcelas > 0}"
+							pattern="dd/MM/yyyy"
+							value="#{matriculaCadastroControlador.dataVencimento}"/>
+			</h:panelGrid>
+		</fieldset>
+	</ui:define>
+</ui:composition>
+</html>

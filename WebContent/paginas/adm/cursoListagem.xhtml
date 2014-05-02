@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateListagem.xhtml">
+	<ui:param name="mbean" value="#{cursoListagemControlador}" />
+	<ui:param name="tituloListagem" value="Listagem de Cursos" />
+	<ui:param name="novo" value="novo"/>
+	
+	<ui:define name="formulario">
+		<p:dataTable value="#{cursoListagemControlador.lista}" var="c" rows="5" paginator="true" paginatorPosition="bottom">
+			
+			<p:column headerText="Descrição" filterBy="#{c.descricao}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{c.descricao}" />
+			</p:column>
+			
+			<p:column headerText="Investimento" filterBy="#{c.investimento}" styleClass="colunaTabela" filterStyle="width: 80%;">
+				<h:outputText value="#{c.investimento}" >
+					<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+				</h:outputText>
+			</p:column>
+			
+			<p:column style="width: 10%;">
+				<p:commandButton icon="ui-icon-pencil" action="/paginas/adm/cursoCadastro.jsf?faces-redirect=true" ajax="false">
+					<f:setPropertyActionListener target="#{cursoCadastroControlador.entidade}" value="#{c}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-trash" action="#{cursoListagemControlador.excluir}" update="@form">
+					<f:setPropertyActionListener target="#{cursoListagemControlador.entidade}" value="#{c}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templateRelatorio.xhtml">
+	<ui:param name="mbean" value="#{relatorioUsuariosControlador}" />
+
+	<ui:param name="emitirRelatorio" value="emitirRelatorio" />
+	<ui:param name="limpar" value="limpar" />
+	<ui:param name="cancelar" value="cancelar" />
+
+	<ui:param name="titulo" value="Relatório de Usuários" />
+
+	<ui:define name="formulario">
+		<fieldset>
+			<legend>Filtros para pesquisa</legend>
+			<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+				<p:column>
+					<p:outputLabel value="Tipo de Usuário:" />
+				</p:column>
+				<p:column>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="* Alunos" for="tipoAluno"/>
+						<p:selectBooleanCheckbox id="tipoAluno" label="Tipo Aluno" value="#{relatorioUsuariosControlador.tipoAluno}"/>
+						
+						<p:outputLabel value="* Professores" for="tipoProfessor"/>
+						<p:selectBooleanCheckbox id="tipoProfessor" label="Tipo Professor" value="#{relatorioUsuariosControlador.tipoProfessor}"/>
+						
+						<p:outputLabel value="* Administradores" for="tipoAdm"/>
+						<p:selectBooleanCheckbox id="tipoAdm" label="Tipo ADM" value="#{relatorioUsuariosControlador.tipoAdm}"/>
+					</h:panelGrid><br/>
+				</p:column>
+
+				<p:column>
+					<p:outputLabel for="status" value="Status:" />
+				</p:column>
+				<p:column>
+					<p:selectBooleanCheckbox id="status" label="Ativo ou Inativo" value="#{relatorioUsuariosControlador.status}"/><br/><br/>
+				</p:column>
+				
+				<p:column>
+					<p:outputLabel value="Período de Cadastro:" />
+				</p:column>
+				<p:column>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="* Data Início" for="dataInicio"/>
+						<p:calendar id="dataInicio" label="Data Início" value="#{relatorioUsuariosControlador.dataInicio}"/>
+						
+						<p:outputLabel value="* Data Fim" for="dataFim"/>
+						<p:calendar id="dataFim" label="Data Fim" value="#{relatorioUsuariosControlador.dataFim}"/>
+					</h:panelGrid>
+					<br />
+				</p:column>
+			</h:panelGrid>
+		</fieldset>
+	</ui:define>
+</ui:composition>
+</html>
